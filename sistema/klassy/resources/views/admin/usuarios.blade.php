@@ -1,4 +1,4 @@
-@extends('admin.admin_inicio')
+@extends('admin.admin_principal')
 
 @section('content')
     <div class="container mt-4">

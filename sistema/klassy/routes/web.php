@@ -1,14 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\GerenteController;
+use App\Http\Controllers\PratoController;
 
-Route::get('/',  [HomeController::class, 'index'])->name('home');
-Route::get('/redirects',  [HomeController::class, 'redirecionar'])->name('redirecionar');
+/* =-=-=-= Controle de páginas =-=-=-= */
+Route::get('/',  [PaginaController::class, 'index'])->name('home');
+Route::get('/redirecionar',  [PaginaController::class, 'redirecionar'])->name('redirecionar');
 
-Route::get('/users', [AdminController::class, 'mostrar_usuarios'])->name('admin.users');
-Route::post('/deletar_usuario', [AdminController::class, 'deletar_usuario'])->name('admin.deletar_usuario');
+/* =-=-=-= Gerente =-=-=-= */
+
+// Tela de usuários
+Route::get('/usuarios', [GerenteController::class, 'mostrarUsuarios'])->name('admin.usuarios');
+Route::post('/deletar_usuario/{id}', [GerenteController::class, 'deletarUsuario'])->name('admin.deletar_usuario');
+
+// Tela de cardápio
+Route::get('/cardapio', [GerenteController::class, 'mostrarCardapio'])->name('admin.cardapio');
+Route::post('/adicionar_prato', [PratoController::class, 'adicionarPrato'])->name('adicionar_prato');
+Route::get('/editar_prato/{id}', [PratoController::class, 'editarPrato'])->name('editar_prato');
+Route::post('/atualizar_prato/{id}', [PratoController::class, 'atualizarPrato'])->name('atualizar_prato');
+Route::post('/deletar_prato/{id}', [PratoController::class, 'deletarPrato'])->name('deletar_prato');
+
 
 Route::middleware([
     'auth:sanctum',
