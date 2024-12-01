@@ -43,7 +43,7 @@
                         <td>{{ $prato->nome }}</td>
                         <td>{{ $prato->descricao }}</td>
                         <td>{{ $prato->preco }}</td>
-                        <td><img src="{{ asset('storage/' . $prato->imagem) }}" class="w-25 h-25"></td>
+                        <td><img src="{{ asset('storage/' . $prato->imagem) }}" class="w-50 h-50"></td>
                         <td><a class="btn btn-primary" href="{{ route('editar_prato', $prato->id) }}">Editar</a></td>
                         <td><a class="btn btn-danger" href="{{ route('deletar_prato', $prato->id) }}">Deletar</a></td>
                     </tr>

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Funcionario;
 
 class User extends Authenticatable
 {
@@ -29,6 +30,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tipo_usuario',
     ];
 
     /**
@@ -64,4 +66,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function funcionario()
+    {
+        return $this->hasMany(Funcionario::class);
+    }
+
 }

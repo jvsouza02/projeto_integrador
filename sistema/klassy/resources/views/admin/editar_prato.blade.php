@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="imagem" class="form-label">Imagem:</label>
-                <input type="file" class="form-control text-black" id="imagem" name="imagem" file="{{ $prato->imagem }}" required>
+                <input type="file" class="form-control text-black" id="imagem" name="imagem" required>
             </div>
             <button type="submit" class="btn btn-primary right-0">Atualizar Prato</button>
         </form>

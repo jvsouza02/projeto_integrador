@@ -15,9 +15,9 @@ class PaginaController extends Controller
 
     public function redirecionar(){
         $usuario = Auth::user()->tipo_usuario;
-        if($usuario == 1){
+        if($usuario == 1) {
             return view('admin.admin_principal');
-        } else {
+        } else if ($usuario == 0) {
             $data = Prato::all();
             return view('klassy.principal', compact('data'));
         }
