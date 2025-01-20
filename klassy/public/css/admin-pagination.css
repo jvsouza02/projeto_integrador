@@ -1,0 +1,45 @@
+.pagination-custom {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    background-color: transparent; /* Deixar o fundo transparente */
+    border-radius: 5px;
+}
+
+.pagination-custom li {
+    margin: 0 5px;
+}
+
+.pagination-custom a,
+.pagination-custom span {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #fff; /* Cor do texto branca */
+    background-color: #007bff; /* Azul do btn-primary do Bootstrap */
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.pagination-custom a:hover {
+    background-color: #0056b3; /* Azul mais escuro para o efeito de hover */
+    color: #fff; /* Manter a cor do texto branca */
+}
+
+/* Página ativa */
+.pagination-custom .active span {
+    background-color: #0056b3; /* Azul escuro para a página ativa */
+    font-weight: bold;
+    cursor: default;
+}
+
+/* Páginas desabilitadas */
+.pagination-custom .disabled span {
+    background-color: #c6d1e1; /* Cor clara para páginas desabilitadas */
+    color: #aab7b8;
+    cursor: not-allowed;
+}

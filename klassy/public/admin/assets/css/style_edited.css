@@ -1,0 +1,138 @@
+.div-main {
+    background-color: #2A2D3E;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.form-edited {
+    background-color: #1e2630;
+    padding: 20px;
+    margin: 20px;
+    width: 480px;
+    border-radius: 16px;
+}
+
+.form-edited input,
+.form-edited select {
+    color: black !important;
+    border-radius: 8px;
+}
+
+.form-edited div {
+    display: flex;
+    flex-direction: column;
+}
+
+.div-disponivel {
+    flex-direction: row !important;
+    align-items: center;
+}
+
+.div-disponivel div {
+    flex-direction: row !important;
+    display: flex;
+    margin-inline: 5px;
+    gap: 3px;
+}
+
+.card-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    background-color: #1e2630;
+    border-radius: 16px;
+}
+
+.card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card-refeicoes {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    height: 410px;
+    width: 260px;
+    background-color: #272d35;
+    border-radius: 16px;
+}
+
+.card-funcionarios {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    height: 170px;
+    width: 400px;
+    background-color: #272d35;
+    border-radius: 16px;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+}
+
+.card-refeicoes img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-funcionarios img {
+    height: 100%;
+    width: 120px;
+    object-fit: fill;
+    border-radius: 10px 0 0 10px;
+}
+
+.card-body-container {
+    padding: 10px;
+    width: 100%;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    display: -webkit-box;/* Configura o modelo flexível */
+    -webkit-line-clamp: 1;/* Número máximo de linhas */
+    -webkit-box-orient: vertical;/* Orientação do texto */
+    overflow: hidden;/* Oculta o texto extra */
+    text-overflow: ellipsis;/* Adiciona reticências (...) */
+    font-size: 0.95rem;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+}

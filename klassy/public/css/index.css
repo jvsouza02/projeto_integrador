@@ -1,0 +1,13 @@
+.chef-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px; /* Altura fixa do card */
+}
+
+.thumb img {
+    height: 250px;
+    width: 250px;
+    object-fit: cover; /* Ajuste para evitar distorções */
+}

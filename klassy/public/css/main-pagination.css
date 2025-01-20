@@ -1,0 +1,44 @@
+.pagination-custom {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.pagination-custom li {
+    margin: 0 5px;
+}
+
+.pagination-custom a,
+.pagination-custom span {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #e74c3c;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Remover a cor azul padrão ao passar o mouse */
+.pagination-custom a:hover {
+    background-color: #c0392b;
+    color: #fff; /* Manter a cor do texto branca */
+    text-decoration: none; /* Garantir que o texto não fique sublinhado */
+}
+
+/* Manter a aparência da página ativa */
+.pagination-custom .active span {
+    background-color: #c0392b;
+    font-weight: bold;
+    cursor: default;
+}
+
+/* Desabilitar as páginas quando não for possível navegar */
+.pagination-custom .disabled span {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}

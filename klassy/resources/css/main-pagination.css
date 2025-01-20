@@ -1,0 +1,35 @@
+.pagination-custom {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination-custom li {
+    margin: 0 5px;
+}
+
+.pagination-custom a, .pagination-custom span {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #e74c3c;
+    border-radius: 5px;
+}
+
+.pagination-custom a:hover {
+    background-color: #c0392b;
+}
+
+.pagination-custom .active span {
+    background-color: #c0392b;
+    font-weight: bold;
+    cursor: default;
+}
+
+.pagination-custom .disabled span {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
