@@ -17,6 +17,7 @@ Route::get('/',  [PaginaController::class, 'index'])->name('home');
 /* =-=-=-= Cliente =-=-=-= */
 // Reserva
 Route::post('/reservar', [ReservaController::class, 'fazerReserva'])->name('reservar');
+Route::get('/cliente_reservas', [ReservaController::class, 'mostrarReservas'])->name('cliente.reservas');
 // Carrinho
 Route::get('/adicionar_carrinho/{id}', [CarrinhoController::class, 'adicionarCarrinho'])->name('adicionar_carrinho');
 Route::get('/carrinho/{id?}', [CarrinhoController::class, 'mostrarCarrinho'])->name('mostrar_carrinho');

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrinho;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use Auth;
 
 class ReservaController extends Controller
 {
@@ -30,5 +32,16 @@ class ReservaController extends Controller
         $reserva->save();
 
         return redirect()->route('home');
+    }
+
+    public function mostrarReservas()
+    {
+        $reservas = Reserva::all();
+        if (Carrinho::count() > 0) {
+            $quantidade_carrinho = Carrinho::where('id_usuario', Auth::id())->count();
+        } else {
+            $quantidade_carrinho = 0;
+        }
+        return view('klassy.reservas', compact('reservas', 'quantidade_carrinho'));
     }
 }

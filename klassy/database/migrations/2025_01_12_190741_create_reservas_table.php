@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_usuario')->constrained('users')->nullable();
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');
