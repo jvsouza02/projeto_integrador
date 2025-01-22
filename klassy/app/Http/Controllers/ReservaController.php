@@ -44,4 +44,37 @@ class ReservaController extends Controller
         }
         return view('klassy.reservas', compact('reservas', 'quantidade_carrinho'));
     }
+
+    public function atualizarReserva(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|string',
+            'email' => 'required|string|email',
+            'telefone' => 'required|string',
+            'numero_pessoas' => 'required|integer',
+            'date' => 'required|date',
+            'time' => 'required|string',
+            'message' => 'nullable|string',
+        ]);
+
+        $reserva = Reserva::find($request->id);
+        $reserva->nome = $request->nome;
+        $reserva->email = $request->email;
+        $reserva->telefone = $request->telefone;
+        $reserva->numero_pessoas = $request->numero_pessoas;
+        $reserva->data = $request->date;
+        $reserva->hora = $request->time;
+        $reserva->observacao = $request->message;
+        $reserva->save();
+
+        return redirect()->route('cliente.reservas');
+    }
+
+    public function deletarReserva($id)
+    {
+        $reserva = Reserva::find($id);
+        $reserva->delete();
+
+        return redirect()->route('cliente.reservas');
+    }
 }
