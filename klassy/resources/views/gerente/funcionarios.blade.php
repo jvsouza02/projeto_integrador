@@ -38,8 +38,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="salario">Salário:</label>
-                <input type="number" id="salario" name="salario" value="{{ old('salario') }}" required>
+                <label for="salario">Salário(R$):</label>
+                <input type="text" id="salario" name="salario" value="{{ old('salario') }}" required>
             </div>
             <div class="mb-3">
                 <label for="imagem">Foto:</label>

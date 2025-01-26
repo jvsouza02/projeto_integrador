@@ -35,8 +35,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="preco">Preco:</label>
-                <input type="number" step="0.01" id="preco" name="preco" required>
+                <label for="preco">Preço(R$):</label>
+                <input type="text" id="preco" name="preco" required>
             </div>
             <div class="mb-3 div-disponivel">
                 <label for="disponivel">Disponível:</label>

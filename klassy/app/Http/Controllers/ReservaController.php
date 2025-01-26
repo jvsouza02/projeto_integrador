@@ -12,6 +12,7 @@ class ReservaController extends Controller
     public function fazerReserva(Request $request)
     {
         $request->validate([
+            'id_usuario' => 'nullable|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
@@ -22,6 +23,7 @@ class ReservaController extends Controller
         ]);
 
         $reserva = new Reserva();
+        $reserva->id_usuario = $request->id_usuario;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;
@@ -36,12 +38,9 @@ class ReservaController extends Controller
 
     public function mostrarReservas()
     {
-        $reservas = Reserva::all();
-        if (Carrinho::count() > 0) {
-            $quantidade_carrinho = Carrinho::where('id_usuario', Auth::id())->count();
-        } else {
-            $quantidade_carrinho = 0;
-        }
+        $reservas = Reserva::where('id_usuario', Auth::user()->id)->get();
+        $quantidade_carrinho = Carrinho::where('id_usuario', Auth::user()->id)->count();
+
         return view('klassy.reservas', compact('reservas', 'quantidade_carrinho'));
     }
 

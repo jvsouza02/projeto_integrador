@@ -9,12 +9,13 @@ use App\Models\Funcionario;
 class FuncionarioController extends Controller
 {
     public function cadastrarFuncionario(Request $request) {
+        $request->salario = str_replace(',', '.', str_replace('.', '', $request->salario));
         $request->validate([
             'nome' => 'required|string',
             'email' => 'required|email|unique:users',
             'senha' => 'required|string|min:8',
             'cargo' => 'required|string',
-            'salario' => 'required|numeric',
+            'salario' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $caminho_imagem = $request->file('foto')->store('imagens', 'public');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrinho;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,25 @@ class PedidoController extends Controller
 
         }
 
+        Carrinho::where('id_usuario', auth()->user()->id)->delete();
         return redirect()->back();
+    }
+
+    public function mostrarPedidos() {
+        $pedidos = Pedido::where('id_usuario', auth()->user()->id)->get();
+        $quantidade_carrinho = Pedido::where('id_usuario', auth()->user()->id)->count();
+        return view('klassy.pedidos', compact('pedidos', 'quantidade_carrinho'));
+    }
+
+    public function cancelarPedido($id) {
+        Pedido::find($id)->delete();
+        return redirect()->back();
+    }
+
+    public function alterarStatus(Request $request) {
+        $pedido = Pedido::find($request->id_pedido);
+        $pedido->status = $request->status;
+        $pedido->save();
+        return redirect()->route('cozinheiro.pedidos');
     }
 }

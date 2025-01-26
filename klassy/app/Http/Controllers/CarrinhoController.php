@@ -10,28 +10,20 @@ class CarrinhoController extends Controller
 {
     public function adicionarCarrinho($id)
     {
-        if (Auth::id()) {
-            $carrinho = new Carrinho();
-            $carrinho->id_usuario = Auth::user()->id;
-            $carrinho->id_refeicao = $id;
-            $carrinho->quantidade = 1;
-            $carrinho->save();
-            return redirect()->back();
-        } else {
-            return redirect('/login');
-        }
+        $carrinho = new Carrinho();
+        $carrinho->id_usuario = Auth::user()->id;
+        $carrinho->id_refeicao = $id;
+        $carrinho->quantidade = 1;
+        $carrinho->save();
+        return redirect()->back();
     }
 
     public function mostrarCarrinho($id)
     {
-        if (Auth::id()) {
-            $carrinho = Carrinho::where('id_usuario', $id)->get();
-            $quantidade_carrinho = Carrinho::where('id_usuario', Auth::user()->id)->count();
-            $itens = Carrinho::where('id_usuario', $id)->join('refeicoes', 'carrinhos.id_refeicao', '=', 'refeicoes.id')->get();
-            return view('klassy.carrinho', ['carrinho' => $carrinho, 'quantidade_carrinho' => $quantidade_carrinho, 'itens' => $itens]);
-        } else {
-            return redirect('/login');
-        }
+        $carrinho = Carrinho::where('id_usuario', $id)->get();
+        $quantidade_carrinho = Carrinho::where('id_usuario', Auth::user()->id)->count();
+        $itens = Carrinho::where('id_usuario', $id)->join('refeicoes', 'carrinhos.id_refeicao', '=', 'refeicoes.id')->get();
+        return view('klassy.carrinho', ['carrinho' => $carrinho, 'quantidade_carrinho' => $quantidade_carrinho, 'itens' => $itens]);
     }
 
     public function removerCarrinho($id)

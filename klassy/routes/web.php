@@ -12,21 +12,26 @@ use App\Http\Controllers\RefeicaoController;
 use App\Http\Controllers\FuncionarioController;
 
 /* =-=-=-= Controle de páginas =-=-=-= */
-Route::get('/',  [PaginaController::class, 'index'])->name('home');
+Route::get('/', [PaginaController::class, 'index'])->name('home');
 
 /* =-=-=-= Cliente =-=-=-= */
 // Reserva
 Route::post('/reservar', [ReservaController::class, 'fazerReserva'])->name('reservar');
-Route::get('/cliente_reservas', [ReservaController::class, 'mostrarReservas'])->name('cliente.reservas');
+Route::get('/cliente_reservas', [ReservaController::class, 'mostrarReservas'])->name('cliente.reservas')->middleware('auth');
 Route::post('/atualizar_reserva', [ReservaController::class, 'atualizarReserva'])->name('atualizar_reserva');
-Route::get('/deletar_reserva/{id}', [ReservaController::class, 'deletarReserva'])->name('deletar_reserva');
+Route::get('/deletar_reserva/{id}', [ReservaController::class, 'deletarReserva'])->name('cancelar_reserva');
 // Carrinho
-Route::get('/adicionar_carrinho/{id}', [CarrinhoController::class, 'adicionarCarrinho'])->name('adicionar_carrinho');
-Route::get('/carrinho/{id?}', [CarrinhoController::class, 'mostrarCarrinho'])->name('mostrar_carrinho');
+Route::get('/adicionar_carrinho/{id}', [CarrinhoController::class, 'adicionarCarrinho'])->name('adicionar_carrinho')->middleware('auth');
+Route::get('/carrinho/{id?}', [CarrinhoController::class, 'mostrarCarrinho'])->name('mostrar_carrinho')->middleware('auth');
 Route::get('/remover_carrinho/{id}', [CarrinhoController::class, 'removerCarrinho'])->name('remover_carrinho');
 Route::get('/limpar_carrinho', [CarrinhoController::class, 'limparCarrinho'])->name('limpar_carrinho');
 // Pedido
 Route::post('/finalizar_pedido', [PedidoController::class, 'finalizarPedido'])->name('finalizar_pedido');
+Route::get('/cliente_pedidos', [PedidoController::class, 'mostrarPedidos'])->name('mostrar_pedidos')->middleware('auth');
+Route::get('/cancelar_pedido/{id}', [PedidoController::class, 'cancelarPedido'])->name('cancelar_pedido');
+
+// Funcionarios //
+Route::post('/alterar_status', [PedidoController::class, 'alterarStatus'])->name('funcionarios.alterar_status');
 
 /* =-=-=-= Gerente =-=-=-= */
 
@@ -51,16 +56,22 @@ Route::get('/pedidos', [GerenteController::class, 'mostrarPedidos'])->name('gere
 Route::get('/reservas', [GerenteController::class, 'mostrarReservas'])->name('gerente.reservas');
 
 /* =-=-=-= Garçom =-=-=-= */
+Route::prefix('garcom')->group(function () {
+    Route::get('/pedidos', [GarcomController::class, 'mostrarPedidos'])->name('garcom.pedidos');
+    // Tela de clientes
+    Route::get('/clientes', [GarcomController::class, 'mostrarClientes'])->name('garcom.clientes');
+    Route::post('/clientes/reservar', [GarcomController::class, 'fazerReserva'])->name('garcom.reservar');
+    // Tela de pedidos
+});
 
-// Tela de pedidos
-Route::get('/pedidos', [GarcomController::class, 'mostrarPedidos'])->name('garcom.pedidos');
-// Tela de clientes
-Route::get('/clientes', [GarcomController::class, 'mostrarClientes'])->name('garcom.clientes');
 
 /* =-=-=-= Cozinheiro =-=-=-= */
+Route::prefix('cozinheiro')->group(function () {
+    // Tela de pedidos
+    Route::get('/pedidos', [CozinheiroController::class, 'mostrarPedidos'])->name('cozinheiro.pedidos');
+});
 
-// Tela de pedidos
-Route::get('/pedidos', [CozinheiroController::class, 'mostrarPedidos'])->name('cozinheiro.pedidos');
+
 
 
 

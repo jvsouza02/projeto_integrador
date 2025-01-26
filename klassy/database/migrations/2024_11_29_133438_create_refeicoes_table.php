@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('descricao')->nullable();
             $table->string('categoria');
-            $table->decimal('preco', 8, 2);
+            $table->decimal('preco', 10, 2);
             $table->boolean('disponivel')->default(false);
             $table->string('imagem');
             $table->timestamps();

@@ -12,4 +12,5 @@ class CozinheiroController extends Controller
         $dados = Pedido::paginate(10);
         return view('cozinheiro.pedidos', compact('dados'));
     }
+    
 }
