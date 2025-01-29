@@ -61,36 +61,41 @@
             </div>
         </form>
     </div>
-    @if ($dados->count() > 0)
-        <div class="card-main">
-            <div class="d-flex flex-column">
-                <div class="d-flex align-self-center">
-                    <h1 class="text-2xl text-bold text-center">Refeições</h1>
+    <div class="container">
+        @if ($dados->count() > 0)
+            <div class="card-main">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-self-center">
+                        <h1 class="text-2xl text-bold text-center">Refeições</h1>
+                    </div>
+                    <div class="card-container" id="refeicoes-container">
+                        @foreach ($dados as $refeicao)
+                            <div class="card-hover card-refeicoes">
+                                <img src="{{ asset('storage/' . $refeicao->imagem) }}" class="card-img-top"
+                                    style="height: 200px; object-fit: cover;"
+                                    alt="Imagem do refeicao {{ $refeicao->nome }}">
+                                <div class="card-body-container">
+                                    <h5 class="card-title text-xl">{{ $refeicao->nome }}</h5>
+                                    <p class="card-text"><strong>Descrição:</strong> {{ $refeicao->descricao }}</p>
+                                    <p class="card-text"><strong>Categoria:</strong> {{ $refeicao->categoria }}</p>
+                                    <p class="card-text"><strong>Preço:</strong> R$ {{ $refeicao->preco }}</p>
+                                    <p class="card-text"><strong>Disponibilidade:</strong>
+                                        {{ $refeicao->disponivel ? 'Sim' : 'Não' }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{{ route('editar_refeicao', $refeicao->id) }}"
+                                        class="btn btn-primary">Editar</a>
+                                    <a href="{{ route('deletar_refeicao', $refeicao->id) }}"
+                                        class="btn btn-danger">Deletar</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="card-container">
-                    @foreach ($dados as $refeicao)
-                        <div class="card-hover card-refeicoes">
-                            <img src="{{ asset('storage/' . $refeicao->imagem) }}" class="card-img-top"
-                                style="height: 200px; object-fit: cover;" alt="Imagem do refeicao {{ $refeicao->nome }}">
-                            <div class="card-body-container">
-                                <h5 class="card-title text-xl">{{ $refeicao->nome }}</h5>
-                                <p class="card-text"><strong>Descrição:</strong> {{ $refeicao->descricao }}</p>
-                                <p class="card-text"><strong>Categoria:</strong> {{ $refeicao->categoria }}</p>
-                                <p class="card-text"><strong>Preço:</strong> R$ {{ $refeicao->preco }}</p>
-                                <p class="card-text"><strong>Disponibilidade:</strong>
-                                    {{ $refeicao->disponivel ? 'Sim' : 'Não' }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{ route('editar_refeicao', $refeicao->id) }}" class="btn btn-primary">Editar</a>
-                                <a href="{{ route('deletar_refeicao', $refeicao->id) }}" class="btn btn-danger">Deletar</a>
-                            </div>
-                        </div>
-                    @endforeach
+                <div>
+                    {{ $dados->links('pagination::custom-admin') }}
                 </div>
             </div>
-            <div>
-                {{ $dados->links('pagination::custom-admin') }}
-            </div>
-        </div>
-    @endif
+        @endif
+    </div>
 @endsection

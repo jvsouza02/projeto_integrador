@@ -20,6 +20,7 @@ class GarcomController extends Controller
 
     public function fazerReserva(Request $request) {
         $request->validate([
+            'id_usuario' => 'nullable|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
@@ -39,6 +40,12 @@ class GarcomController extends Controller
         $reserva->observacao = $request->message;
         $reserva->save();
 
+        return redirect()->route('garcom.clientes');
+    }
+
+    public function cancelarReserva($id) {
+        $reserva = Reserva::find($id);
+        $reserva->delete();
         return redirect()->route('garcom.clientes');
     }
 }

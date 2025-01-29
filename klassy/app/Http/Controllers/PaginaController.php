@@ -6,10 +6,12 @@ use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\Refeicao;
 use App\Models\Carrinho;
+use App\Models\User;
 use Auth;
 
 class PaginaController extends Controller
 {
+
     public function index()
     {
         if (!Auth::id()) {
@@ -19,6 +21,12 @@ class PaginaController extends Controller
         } else {
             $usuario = Auth::user()->tipo_usuario;
             if ($usuario == 'Gerente') {
+                if (!Funcionario::where('usuario_id', Auth::user()->id)->exists()) {
+                    $funcionario = new Funcionario();
+                    $funcionario->usuario_id = Auth::user()->id;
+                    $funcionario->cargo = 'Gerente';
+                    $funcionario->save();
+                }
                 return redirect('usuarios');
             } else if ($usuario == 'Cliente') {
                 $data = Refeicao::all();
@@ -37,5 +45,7 @@ class PaginaController extends Controller
         }
 
     }
+
+
 
 }

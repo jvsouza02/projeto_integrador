@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contato;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Refeicao;
@@ -22,12 +23,12 @@ class GerenteController extends Controller
     }
 
     public function mostrarCardapio() {
-        $dados = Refeicao::paginate(4);
+        $dados = Refeicao::paginate(3);
         return view('gerente.cardapio', compact('dados'));
     }
 
     public function mostrarFuncionarios() {
-        $dados = Funcionario::paginate(4);
+        $dados = Funcionario::paginate(3);
         return view('gerente.funcionarios', compact('dados'));
     }
 
@@ -41,4 +42,13 @@ class GerenteController extends Controller
         return view('gerente.reservas', compact('dados'));
     }
 
+    public function mostrarContatos() {
+        $dados = Contato::paginate(10);
+        return view('gerente.contatos', compact('dados'));
+    }
+
+    public function deletarContato($id) {
+        Contato::find($id)->delete();
+        return redirect()->route('gerente.contatos');
+    }
 }

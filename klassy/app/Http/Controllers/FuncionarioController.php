@@ -16,7 +16,7 @@ class FuncionarioController extends Controller
             'senha' => 'required|string|min:8',
             'cargo' => 'required|string',
             'salario' => 'required|string',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $caminho_imagem = $request->file('foto')->store('imagens', 'public');
 

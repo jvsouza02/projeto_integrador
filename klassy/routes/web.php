@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\CozinheiroController;
 use App\Http\Controllers\GarcomController;
 use App\Http\Controllers\PedidoController;
@@ -19,7 +20,7 @@ Route::get('/', [PaginaController::class, 'index'])->name('home');
 Route::post('/reservar', [ReservaController::class, 'fazerReserva'])->name('reservar');
 Route::get('/cliente_reservas', [ReservaController::class, 'mostrarReservas'])->name('cliente.reservas')->middleware('auth');
 Route::post('/atualizar_reserva', [ReservaController::class, 'atualizarReserva'])->name('atualizar_reserva');
-Route::get('/deletar_reserva/{id}', [ReservaController::class, 'deletarReserva'])->name('cancelar_reserva');
+Route::get('/cancelar_reserva/{id}', [ReservaController::class, 'cancelarReserva'])->name('cancelar_reserva');
 // Carrinho
 Route::get('/adicionar_carrinho/{id}', [CarrinhoController::class, 'adicionarCarrinho'])->name('adicionar_carrinho')->middleware('auth');
 Route::get('/carrinho/{id?}', [CarrinhoController::class, 'mostrarCarrinho'])->name('mostrar_carrinho')->middleware('auth');
@@ -29,6 +30,8 @@ Route::get('/limpar_carrinho', [CarrinhoController::class, 'limparCarrinho'])->n
 Route::post('/finalizar_pedido', [PedidoController::class, 'finalizarPedido'])->name('finalizar_pedido');
 Route::get('/cliente_pedidos', [PedidoController::class, 'mostrarPedidos'])->name('mostrar_pedidos')->middleware('auth');
 Route::get('/cancelar_pedido/{id}', [PedidoController::class, 'cancelarPedido'])->name('cancelar_pedido');
+// Contato
+Route::post('/enviar_mensagem', [ContatoController::class, 'enviarMensagem'])->name('enviar_mensagem');
 
 // Funcionarios //
 Route::post('/alterar_status', [PedidoController::class, 'alterarStatus'])->name('funcionarios.alterar_status');
@@ -54,6 +57,9 @@ Route::get('/deletar_funcionario/{id}', [FuncionarioController::class, 'deletarF
 Route::get('/pedidos', [GerenteController::class, 'mostrarPedidos'])->name('gerente.pedidos');
 // Tela de reservas
 Route::get('/reservas', [GerenteController::class, 'mostrarReservas'])->name('gerente.reservas');
+// Tela de contatos
+Route::get('/contatos', [GerenteController::class, 'mostrarContatos'])->name('gerente.contatos');
+Route::get('/deletar_contato/{id}', [ContatoController::class, 'deletarContato'])->name('deletar_contato');
 
 /* =-=-=-= Garçom =-=-=-= */
 Route::prefix('garcom')->group(function () {
@@ -61,6 +67,7 @@ Route::prefix('garcom')->group(function () {
     // Tela de clientes
     Route::get('/clientes', [GarcomController::class, 'mostrarClientes'])->name('garcom.clientes');
     Route::post('/clientes/reservar', [GarcomController::class, 'fazerReserva'])->name('garcom.reservar');
+    Route::get('/clientes/cancelar_reserva/{id}', [GarcomController::class, 'cancelarReserva'])->name('garcom.cancelar_reserva');
     // Tela de pedidos
 });
 

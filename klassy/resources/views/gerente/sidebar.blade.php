@@ -23,18 +23,18 @@
     </a>
 </li>
 <li class="nav-item menu-items">
-    <a class="nav-link" href="#">
-    <span class="menu-icon">
-        <i class="mdi mdi-receipt"></i>
-    </span>
-    <span class="menu-title">Pedidos</span>
-    </a>
-</li>
-<li class="nav-item menu-items">
     <a class="nav-link" href="{{ route('gerente.reservas') }}">
     <span class="menu-icon">
         <i class="mdi mdi-calendar-check"></i>
     </span>
     <span class="menu-title">Reservas</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
+    <a class="nav-link" href="{{ route('gerente.contatos') }}">
+    <span class="menu-icon">
+        <i class="mdi mdi-calendar-check"></i>
+    </span>
+    <span class="menu-title">Contatos</span>
     </a>
 </li>

@@ -4,7 +4,7 @@
         @if ($paginator->onFirstPage())
             <li class="disabled"><span>Anterior</span></li>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">Anterior</a></li>
+            <li><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">Anterior</a></li>
         @endif
 
         {{-- Links das Páginas --}}
@@ -18,7 +18,7 @@
                     @if ($page == $paginator->currentPage())
                         <li class="active"><span>{{ $page }}</span></li>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <li><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                     @endif
                 @endforeach
             @endif
@@ -26,7 +26,7 @@
 
         {{-- Link da Próxima Página --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">Próximo</a></li>
+            <li><a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">Próximo</a></li>
         @else
             <li class="disabled"><span>Próximo</span></li>
         @endif

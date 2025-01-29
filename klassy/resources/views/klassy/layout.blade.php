@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- Logo -->
-                        <a href="index.html" class="logo">
+                        <a href="{{route('home')}}" class="logo">
                             <img src="{{asset('assets/images/klassy-logo.png')}}" alt="Klassy Cafe HTML Template">
                         </a>
 
@@ -60,15 +60,7 @@
                             <li class="scroll-to-section"><a href="#top" class="active">Início</a></li>
                             <li class="scroll-to-section"><a href="#menu">Cardápio</a></li>
                             <li><a href="{{ route('cliente.reservas' )}}">Reservas</a></li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);">Descubra</a>
-                                <ul>
-                                    <li><a href="#about">Sobre Nós</a></li>
-                                    <li><a href="#chefs">Funcionários</a></li>
-                                    <li><a href="#cont">Contate-Nos</a></li>
-                                    <li><a href="#reviews">Avaliações</a></li>
-                                </ul>
-                            </li>
+                            <li class="scroll-to-section"><a href="#about">Sobre Nós</a></li>
 
                             <!-- Carrinho com Dropdown -->
                             <li class="submenu">
@@ -77,7 +69,7 @@
                                     <span>{{Auth::check() ? $quantidade_carrinho : 0 }}</span>
                                 </a>
                                 <ul>
-                                    <li><a href="#carrinho">Ver Carrinho</a></li>
+                                    <li><a href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->id : 0) }}">Ver Carrinho</a></li>
                                     <li><a href="#clear-cart">Limpar Carrinho</a></li>
                                     <li><a href="{{ route('mostrar_pedidos') }}">Meus Pedidos</a></li>
                                 </ul>

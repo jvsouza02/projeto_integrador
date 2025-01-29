@@ -69,7 +69,7 @@ class ReservaController extends Controller
         return redirect()->route('cliente.reservas');
     }
 
-    public function deletarReserva($id)
+    public function cancelarReserva($id)
     {
         $reserva = Reserva::find($id);
         $reserva->delete();
