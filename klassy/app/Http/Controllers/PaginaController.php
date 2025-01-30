@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\Refeicao;
@@ -29,9 +30,14 @@ class PaginaController extends Controller
                 }
                 return redirect('usuarios');
             } else if ($usuario == 'Cliente') {
+                if (!Cliente::where('usuario_id', Auth::user()->id)->exists()) {
+                    $cliente = new Cliente();
+                    $cliente->usuario_id = Auth::user()->id;
+                    $cliente->save();
+                }
                 $data = Refeicao::all();
                 if (Carrinho::count() > 0) {
-                    $quantidade_carrinho = Carrinho::where('id_usuario', Auth::id())->count();
+                    $quantidade_carrinho = Carrinho::where('id_cliente', Auth::id())->count();
                 } else {
                     $quantidade_carrinho = 0;
                 }

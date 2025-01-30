@@ -7,7 +7,7 @@
                     <form id="reservation" action="{{route('reservar')}}" method="post">
                         @csrf
                         <div class="row">
-                            <input type="text" name="id_usuario" id="id_usuario" hidden value="{{Auth::check() ? Auth::user()->id : ''}}">
+                            <input type="text" name="id_cliente" id="id_cliente" hidden value="{{Auth::check() ? Auth::user()->id : ''}}">
                             <div class="col-md-6">
                                 <input type="text" id="nome" name="nome" placeholder="Seu Nome" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                             </div>

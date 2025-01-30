@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_usuario')->constrained('users')->nullable();
+            $table->foreignId('id_cliente')->constrained('clientes')->nullable();
             $table->string('refeicao');
             $table->string('preco');
             $table->integer('quantidade');

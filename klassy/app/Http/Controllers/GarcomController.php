@@ -20,7 +20,7 @@ class GarcomController extends Controller
 
     public function fazerReserva(Request $request) {
         $request->validate([
-            'id_usuario' => 'nullable|integer',
+            'id_cliente' => 'nullable|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',

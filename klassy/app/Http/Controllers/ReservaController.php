@@ -12,7 +12,7 @@ class ReservaController extends Controller
     public function fazerReserva(Request $request)
     {
         $request->validate([
-            'id_usuario' => 'nullable|integer',
+            'id_cliente' => 'nullable|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
@@ -23,7 +23,7 @@ class ReservaController extends Controller
         ]);
 
         $reserva = new Reserva();
-        $reserva->id_usuario = $request->id_usuario;
+        $reserva->id_usuario = $request->id_cliente;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;

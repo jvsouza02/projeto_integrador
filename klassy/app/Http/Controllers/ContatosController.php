@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contato;
 use Illuminate\Http\Request;
+use App\Models\Contato;
 
-class ContatoController extends Controller
+class ContatosController extends Controller
 {
     public function enviarMensagem(Request $request) {
         $request->validate([
@@ -23,5 +23,10 @@ class ContatoController extends Controller
         $contato->save();
 
         return redirect()->route('home')->with('success', 'Mensagem enviada com sucesso!');
+    }
+
+    public function deletarMensagem($id) {
+        Contato::find($id)->delete();
+        return redirect()->back();
     }
 }

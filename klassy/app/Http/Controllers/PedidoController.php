@@ -12,7 +12,7 @@ class PedidoController extends Controller
         foreach($request->nome as $chave => $nome) {
             $pedido = new Pedido();
 
-            $pedido->id_usuario = auth()->user()->id;
+            $pedido->id_cliente = auth()->user()->id;
             $pedido->refeicao = $nome;
             $pedido->preco = $request->preco[$chave];
             $pedido->quantidade = $request->quantidade[$chave];
@@ -21,13 +21,13 @@ class PedidoController extends Controller
 
         }
 
-        Carrinho::where('id_usuario', auth()->user()->id)->delete();
+        Carrinho::where('id_cliente', auth()->user()->id)->delete();
         return redirect()->back();
     }
 
     public function mostrarPedidos() {
-        $pedidos = Pedido::where('id_usuario', auth()->user()->id)->get();
-        $quantidade_carrinho = Pedido::where('id_usuario', auth()->user()->id)->count();
+        $pedidos = Pedido::where('id_cliente', auth()->user()->id)->get();
+        $quantidade_carrinho = Pedido::where('id_cliente', auth()->user()->id)->count();
         return view('klassy.pedidos', compact('pedidos', 'quantidade_carrinho'));
     }
 

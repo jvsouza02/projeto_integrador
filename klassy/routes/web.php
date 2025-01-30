@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarrinhoController;
-use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\ContatosController;
 use App\Http\Controllers\CozinheiroController;
 use App\Http\Controllers\GarcomController;
 use App\Http\Controllers\PedidoController;
@@ -31,7 +31,7 @@ Route::post('/finalizar_pedido', [PedidoController::class, 'finalizarPedido'])->
 Route::get('/cliente_pedidos', [PedidoController::class, 'mostrarPedidos'])->name('mostrar_pedidos')->middleware('auth');
 Route::get('/cancelar_pedido/{id}', [PedidoController::class, 'cancelarPedido'])->name('cancelar_pedido');
 // Contato
-Route::post('/enviar_mensagem', [ContatoController::class, 'enviarMensagem'])->name('enviar_mensagem');
+Route::post('/enviar_mensagem', [ContatosController::class, 'enviarMensagem'])->name('enviar_mensagem');
 
 // Funcionarios //
 Route::post('/alterar_status', [PedidoController::class, 'alterarStatus'])->name('funcionarios.alterar_status');
@@ -59,7 +59,7 @@ Route::get('/pedidos', [GerenteController::class, 'mostrarPedidos'])->name('gere
 Route::get('/reservas', [GerenteController::class, 'mostrarReservas'])->name('gerente.reservas');
 // Tela de contatos
 Route::get('/contatos', [GerenteController::class, 'mostrarContatos'])->name('gerente.contatos');
-Route::get('/deletar_contato/{id}', [ContatoController::class, 'deletarContato'])->name('deletar_contato');
+Route::get('/deletar_mensagem/{id}', [ContatosController::class, 'deletarMensagem'])->name('deletar_mensagem');
 
 /* =-=-=-= Garçom =-=-=-= */
 Route::prefix('garcom')->group(function () {

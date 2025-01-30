@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach ($pedidos as $pedido)
                         <tr>
-                            <td>{{ $pedido->cliente->name }}</td>
+                            <td>{{ $pedido->cliente->usuario->name }}</td>
                             <td>{{ $pedido->refeicao }}</td>
                             <td>{{ $pedido->quantidade }}</td>
                             <td>{{ $pedido->preco }}</td>

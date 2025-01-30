@@ -67,6 +67,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function cliente()
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
     public function funcionario()
     {
         return $this->hasMany(Funcionario::class);
