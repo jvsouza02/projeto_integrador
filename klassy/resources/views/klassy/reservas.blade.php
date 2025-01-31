@@ -1,7 +1,7 @@
 @extends('klassy.layout')
 
 @section('content')
-    <div class="container mt-32">
+    <div class="container" style="margin-top: 100px;">
         @if ($reservas->count() == 0)
             <div class="alert alert-danger">
                 <h1>Não há reservas cadastradas.</h1>

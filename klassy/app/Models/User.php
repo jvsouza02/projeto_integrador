@@ -69,15 +69,11 @@ class User extends Authenticatable
 
     public function cliente()
     {
-        return $this->hasMany(Cliente::class);
+        return $this->hasOne(Cliente::class);
     }
 
     public function funcionario()
     {
-        return $this->hasMany(Funcionario::class);
-    }
-
-    public function pedido(){
-        return $this->hasMany(Pedido::class);
+        return $this->hasOne(Funcionario::class);
     }
 }

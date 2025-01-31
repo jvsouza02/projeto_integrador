@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Contato extends Model
 {
     protected $table = 'contatos';
-    protected $fillable = ['nome', 'email', 'assunto', 'mensagem'];
+    protected $fillable = ['id_cliente', 'nome', 'email', 'assunto', 'mensagem'];
+
+    public function cliente() {
+        return $this->belongsTo(Cliente::class, 'id_cliente');
+    }
 }

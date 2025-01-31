@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CarrinhoItens;
+use App\Models\PedidoItens;
+
 
 class Refeicao extends Model
 {
@@ -10,7 +13,11 @@ class Refeicao extends Model
     protected $table = 'refeicoes';
     protected $fillable = ['nome', 'descricao', 'categoria', 'preco', 'disponivel', 'imagem'];
 
-    public function carrinhos() {
-        return $this->hasMany(Carrinho::class, 'id_refeicao');
+    public function carrinhoItens() {
+        return $this->hasMany(CarrinhoItens::class, 'id_refeicao');
+    }
+
+    public function pedidoItem() {
+        return $this->hasMany(PedidoItens::class, 'id_refeicao');
     }
 }

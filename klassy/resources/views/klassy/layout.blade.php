@@ -58,7 +58,7 @@
                         <!-- Menu -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Início</a></li>
-                            <li class="scroll-to-section"><a href="#menu">Cardápio</a></li>
+                            <li class="scroll-to-section"><a href="{{route('home', '#menu')}}">Cardápio</a></li>
                             <li><a href="{{ route('cliente.reservas' )}}">Reservas</a></li>
                             <li class="scroll-to-section"><a href="#about">Sobre Nós</a></li>
 

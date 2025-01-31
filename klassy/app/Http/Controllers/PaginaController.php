@@ -31,9 +31,16 @@ class PaginaController extends Controller
                 return redirect('usuarios');
             } else if ($usuario == 'Cliente') {
                 if (!Cliente::where('usuario_id', Auth::user()->id)->exists()) {
-                    $cliente = new Cliente();
-                    $cliente->usuario_id = Auth::user()->id;
-                    $cliente->save();
+                    if (User::where('tipo_usuario', 'Gerente')->exists()) {
+                        $cliente = new Cliente();
+                        $cliente->usuario_id = Auth::user()->id;
+                        $cliente->save();
+                    } else {
+                        $funcionario = new Funcionario();
+                        $funcionario->usuario_id = Auth::user()->id;
+                        $funcionario->cargo = 'Gerente';
+                        $funcionario->save();
+                    }
                 }
                 $data = Refeicao::all();
                 if (Carrinho::count() > 0) {
