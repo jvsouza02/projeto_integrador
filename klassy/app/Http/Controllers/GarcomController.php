@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\PedidoItens;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
 
 class GarcomController extends Controller
 {
     public function mostrarPedidos() {
-        $dados = Pedido::paginate(10);
+        $dados = PedidoItens::paginate(10);
         return view('garcom.pedidos', compact('dados'));
     }
 
@@ -21,20 +22,20 @@ class GarcomController extends Controller
     public function fazerReserva(Request $request) {
         $request->validate([
             'id_cliente' => 'nullable|integer',
+            'id_mesa' => 'required|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
-            'numero_pessoas' => 'required|integer',
             'date' => 'required|date',
             'time' => 'required|string',
             'message' => 'nullable|string',
         ]);
 
         $reserva = new Reserva();
+        $reserva->id_mesa = $request->id_mesa;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;
-        $reserva->numero_pessoas = $request->numero_pessoas;
         $reserva->data = $request->date;
         $reserva->hora = $request->time;
         $reserva->observacao = $request->message;

@@ -17,7 +17,7 @@
                         <th>Preço</th>
                         <th>Remover</th>
                     </tr>
-                    @foreach ($itens as $refeicao)
+                    @foreach ($carrinho_itens as $refeicao)
                         <tr>
                             <td><input type="text" name="nome[]" value="{{ $refeicao->nome }}" class="border-0" readonly>
                             </td>

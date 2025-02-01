@@ -22,7 +22,7 @@ class PedidoItens extends Model
         return $this->belongsTo(Pedido::class, 'id_pedido');
     }
 
-    public function produto() {
+    public function refeicao() {
         return $this->belongsTo(Refeicao::class, 'id_refeicao');
     }
 }

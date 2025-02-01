@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contato;
+use App\Models\PedidoItens;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Refeicao;
@@ -33,7 +34,7 @@ class GerenteController extends Controller
     }
 
     public function mostrarPedidos() {
-        $dados = Pedido::paginate(10);
+        $dados = PedidoItens::paginate(10);
         return view('gerente.pedidos', compact('dados'));
     }
 

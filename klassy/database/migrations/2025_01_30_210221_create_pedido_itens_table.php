@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pedido_itens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_pedido')->constrained('pedidos')->onDelete('cascade');
-            $table->foreignId('id_refeicao')->constrained('refeicoes')->onDelete('cascade');
+            $table->foreignId('id_refeicao')->constrained('refeicoes');
             $table->integer('quantidade');
             $table->decimal('valor_unitario', 10, 2);
             $table->timestamps();

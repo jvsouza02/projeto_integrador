@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarrinhoItens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Carrinho;
@@ -10,25 +11,33 @@ class CarrinhoController extends Controller
 {
     public function adicionarCarrinho($id)
     {
-        $carrinho = new Carrinho();
-        $carrinho->id_usuario = Auth::user()->id;
-        $carrinho->id_refeicao = $id;
-        $carrinho->quantidade = 1;
-        $carrinho->save();
+        if (!Carrinho::where('id_cliente', Auth::user()->id)->exists()) {
+            $carrinho = new Carrinho();
+            $carrinho->id_cliente = Auth::user()->id;
+        }
+
+        $carrinho = Carrinho::where('id_cliente', Auth::user()->id)->get();
+        $carrinho_itens = new CarrinhoItens();
+        $carrinho_itens->id_carrinho = $carrinho->id;
+        $carrinho_itens->id_refeicao = $id;
+        $carrinho_itens->quantidade = 1;
+        $carrinho_itens->save();
+
+
         return redirect()->back();
     }
 
     public function mostrarCarrinho($id)
     {
         $carrinho = Carrinho::where('id_cliente', $id)->get();
-        $quantidade_carrinho = Carrinho::where('id_cliente', Auth::user()->id)->count();
-        $itens = Carrinho::where('id_cliente', $id)->join('refeicoes', 'carrinhos.id_refeicao', '=', 'refeicoes.id')->get();
-        return view('klassy.carrinho', ['carrinho' => $carrinho, 'quantidade_carrinho' => $quantidade_carrinho, 'itens' => $itens]);
+        $carrinho_itens = CarrinhoItens::where('id_carrinho', $carrinho->id)->get();
+        return view('klassy.carrinho', compact('carrinho', 'carrinho_itens'));
     }
 
     public function removerCarrinho($id)
     {
-        Carrinho::where('id_refeicao', $id)->where('id_cliente', Auth::user()->id)->delete();
+        $carrinho = Carrinho::where('id_cliente', Auth::user()->id)->get();
+        CarrinhoItens::where('id_carrinho', $carrinho->id)->where('id_refeicao', $id)->delete();
         return redirect()->back();
     }
 }

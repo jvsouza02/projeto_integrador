@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pedidos as $pedido)
+                    @foreach ($pedido_itens as $pedido)
                         <tr>
                             <td>{{ $pedido->cliente->usuario->name }}</td>
                             <td>{{ $pedido->refeicao }}</td>

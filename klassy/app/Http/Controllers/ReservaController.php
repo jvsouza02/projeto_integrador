@@ -13,10 +13,10 @@ class ReservaController extends Controller
     {
         $request->validate([
             'id_cliente' => 'nullable|integer',
+            'id_mesa' => 'required|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
-            'numero_pessoas' => 'required|integer',
             'date' => 'required|date',
             'time' => 'required|string',
             'message' => 'nullable|string',
@@ -24,10 +24,10 @@ class ReservaController extends Controller
 
         $reserva = new Reserva();
         $reserva->id_usuario = $request->id_cliente;
+        $reserva->id_mesa = $request->id_mesa;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;
-        $reserva->numero_pessoas = $request->numero_pessoas;
         $reserva->data = $request->date;
         $reserva->hora = $request->time;
         $reserva->observacao = $request->message;
@@ -50,7 +50,6 @@ class ReservaController extends Controller
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
-            'numero_pessoas' => 'required|integer',
             'date' => 'required|date',
             'time' => 'required|string',
             'message' => 'nullable|string',
@@ -60,7 +59,6 @@ class ReservaController extends Controller
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;
-        $reserva->numero_pessoas = $request->numero_pessoas;
         $reserva->data = $request->date;
         $reserva->hora = $request->time;
         $reserva->observacao = $request->message;

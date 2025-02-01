@@ -66,7 +66,7 @@
                             <li class="submenu">
                                 <a href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->id : 0) }}">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span>{{Auth::check() ? $quantidade_carrinho : 0 }}</span>
+                                    <span>{{Auth::check() ? $carrinho_itens->count() : 0 }}</span>
                                 </a>
                                 <ul>
                                     <li><a href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->id : 0) }}">Ver Carrinho</a></li>

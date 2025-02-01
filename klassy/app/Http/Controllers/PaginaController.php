@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarrinhoItens;
 use App\Models\Cliente;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
@@ -17,8 +18,7 @@ class PaginaController extends Controller
     {
         if (!Auth::id()) {
             $data = Refeicao::all();
-            $funcionarios = Funcionario::whereIn("cargo", ["Garçom", "Cozinheiro"])->paginate(3);
-            return view('klassy.principal', compact('data', 'funcionarios'));
+            return view('klassy.principal', compact('data'));
         } else {
             $usuario = Auth::user()->tipo_usuario;
             if ($usuario == 'Gerente') {
@@ -43,13 +43,13 @@ class PaginaController extends Controller
                     }
                 }
                 $data = Refeicao::all();
-                if (Carrinho::count() > 0) {
-                    $quantidade_carrinho = Carrinho::where('id_cliente', Auth::id())->count();
+                if (Carrinho::exists()) {
+                    $carrinho = Carrinho::where('id_cliente', Auth::user()->id)->get();
+                    $carrinho_itens = CarrinhoItens::where('id_carrinho', $carrinho->id)->get();
                 } else {
-                    $quantidade_carrinho = 0;
+                    $carrinho_itens = 0;
                 }
-                $funcionarios = Funcionario::whereIn("cargo", ["Garçom", "Cozinheiro"])->paginate(3);
-                return view('klassy.principal', compact('data', 'funcionarios', 'quantidade_carrinho'));
+                return view('klassy.principal', compact('data', 'funcionarios', 'carrinho_itens'));
             } else if ($usuario == 'Garçom') {
                 return redirect()->route('garcom.pedidos');
             } else if ($usuario == 'Cozinheiro') {

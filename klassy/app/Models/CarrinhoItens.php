@@ -21,7 +21,7 @@ class CarrinhoItens extends Model
         return $this->belongsTo(Carrinho::class, 'id_carrinho');
     }
 
-    public function produto() {
+    public function refeicao() {
         return $this->belongsTo(Refeicao::class, 'id_refeicao');
     }
 }
