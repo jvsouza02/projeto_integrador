@@ -23,6 +23,14 @@
     </a>
 </li>
 <li class="nav-item menu-items">
+    <a class="nav-link" href="{{ route('gerente.mesas') }}">
+    <span class="menu-icon">
+        <i class="mdi mdi-table"></i>
+    </span>
+    <span class="menu-title">Mesas</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
     <a class="nav-link" href="{{ route('gerente.reservas') }}">
     <span class="menu-icon">
         <i class="mdi mdi-calendar-check"></i>

@@ -4,6 +4,7 @@ use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\ContatosController;
 use App\Http\Controllers\CozinheiroController;
 use App\Http\Controllers\GarcomController;
+use App\Http\Controllers\MesaController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
@@ -53,10 +54,15 @@ Route::post('/cadastrar_funcionario', [FuncionarioController::class, 'cadastrarF
 Route::get('/editar_funcionario/{id}', [FuncionarioController::class, 'editarFuncionario'])->name('editar_funcionario');
 Route::post('/atualizar_funcionario/{id}', [FuncionarioController::class, 'atualizarFuncionario'])->name('atualizar_funcionario');
 Route::get('/deletar_funcionario/{id}', [FuncionarioController::class, 'deletarFuncionario'])->name('deletar_funcionario');
-// Tela de Pedidos
+// Tela de pedidos
 Route::get('/pedidos', [GerenteController::class, 'mostrarPedidos'])->name('gerente.pedidos');
 // Tela de reservas
 Route::get('/reservas', [GerenteController::class, 'mostrarReservas'])->name('gerente.reservas');
+// Tela de mesas
+Route::get('/mesas', [GerenteController::class, 'mostrarMesas'])->name('gerente.mesas');
+Route::get('/cadastrar_mesa', [MesaController::class, 'cadastrarMesa'])->name('gerente.cadastrar_mesa');
+Route::get('/editar_mesa/{id}', [MesaController::class, 'editarMesa'])->name('gerente.editar_mesa');
+Route::get('/deletar_mesa/{id}', [MesaController::class, 'deletarMesa'])->name('gerente.deletar_mesa');
 // Tela de contatos
 Route::get('/contatos', [GerenteController::class, 'mostrarContatos'])->name('gerente.contatos');
 Route::get('/deletar_mensagem/{id}', [ContatosController::class, 'deletarMensagem'])->name('deletar_mensagem');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contato;
+use App\Models\Mesa;
 use App\Models\PedidoItens;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -41,6 +42,11 @@ class GerenteController extends Controller
     public function mostrarReservas() {
         $dados = Reserva::paginate(10);
         return view('gerente.reservas', compact('dados'));
+    }
+
+    public function mostrarMesas() {
+        $dados = Mesa::paginate(10);
+        return view('gerente.mesas', compact('dados'));
     }
 
     public function mostrarContatos() {

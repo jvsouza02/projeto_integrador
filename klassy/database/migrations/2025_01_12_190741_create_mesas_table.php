@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
             $table->string('numero');
+            $table->integer('capacidade');
             $table->string('status')->default('Disponível');
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Telefone</th>
-                    <th>Quantidade de Pessoas</th>
+                    <th>Mesa</th>
                     <th>Data</th>
                     <th>Horário</th>
                     <th>Deletar</th>
@@ -21,7 +21,7 @@
                         <td>{{ $reserva->nome }}</td>
                         <td>{{ $reserva->email }}</td>
                         <td>{{ $reserva->telefone }}</td>
-                        <td>{{ $reserva->numero_pessoas }}</td>
+                        <td>{{ $reserva->mesa->numero }}</td>
                         <td>{{ $reserva->data }}</td>
                         <td>{{ $reserva->hora }}</td>
                         <td><a class="btn btn-danger" href="{{route('cancelar_reserva', $reserva->id)}}">Cancelar</a>
