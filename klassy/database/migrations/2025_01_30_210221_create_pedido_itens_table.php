@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedido_itens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_pedido')->constrained('pedidos')->onDelete('cascade');
-            $table->foreignId('id_refeicao')->constrained('refeicoes');
+            $table->id("idPedidoItem");
+            $table->foreignId('idPedido')->references('idPedido')->on('pedidos')->onDelete('cascade');
+            $table->foreignId('idRefeicao')->references('idRefeicao')->on('refeicoes')->onDelete('cascade');
             $table->integer('quantidade');
-            $table->decimal('valor_unitario', 10, 2);
+            $table->decimal('valorUnitario', 10, 2);
             $table->timestamps();
         });
     }

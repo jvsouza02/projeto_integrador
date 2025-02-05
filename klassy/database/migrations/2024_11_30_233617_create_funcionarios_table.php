@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('funcionarios', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
+            $table->id("idFuncionario");
+            $table->foreignId('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade');
             $table->string('cargo');
             $table->decimal('salario', 12, 2)->default(0);
             $table->string('foto')->nullable();

@@ -10,6 +10,6 @@ class Mesa extends Model
     protected $fillable = ['numero', 'capacidade', 'status'];
 
     public function reserva() {
-        return $this->hasMany(Reserva::class, 'id_mesa');
+        return $this->hasMany(Reserva::class, 'idMesa');
     }
 }

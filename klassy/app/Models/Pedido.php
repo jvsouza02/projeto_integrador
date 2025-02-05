@@ -10,17 +10,17 @@ use App\Models\Pagamento;
 class Pedido extends Model
 {
     protected $table = 'pedidos';
-    protected $fillable = ['id_cliente', 'quantidade', 'valor_total', 'status'];
+    protected $fillable = ['idCliente', 'quantidade', 'valorTotal', 'status'];
 
     public function cliente() {
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+        return $this->belongsTo(Cliente::class, 'idCliente');
     }
 
     public function pedidoItens() {
-        return $this->hasMany(PedidoItens::class, 'id_pedido');
+        return $this->hasMany(PedidoItens::class, 'idPedido');
     }
 
     public function pagamengo() {
-        return $this->hasOne(Pagamento::class, 'id_pedido');
+        return $this->hasOne(Pagamento::class, 'idPedido');
     }
 }

@@ -7,7 +7,7 @@
                     <form id="reservation" action="{{route('reservar')}}" method="post">
                         @csrf
                         <div class="row">
-                            <input type="text" name="id_cliente" id="id_cliente" hidden value="{{Auth::check() ? Auth::user()->id : ''}}">
+                            <input type="text" name="id_cliente" id="id_cliente" hidden value="{{Auth::check() ? Auth::user()->idUsuario : ''}}">
                             <div class="col-md-6">
                                 <input type="text" id="nome" name="nome" placeholder="Seu Nome" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                             </div>
@@ -19,24 +19,17 @@
                             </div>
                             <div class="col-md-6">
                                 <select id="numero_pessoas" name="numero_pessoas" required class="form-control">
-                                    <option value="" selected disabled>Selecione o número de pessoas</option>
-                                    <option value="1">01 Pessoa</option>
-                                    <option value="2">02 Pessoas</option>
-                                    <option value="3">03 Pessoas</option>
-                                    <option value="4">04 Pessoas</option>
-                                    <option value="5">05 Pessoas</option>
-                                    <option value="6">06 Pessoas</option>
-                                    <option value="7">07 Pessoas</option>
-                                    <option value="8">08 Pessoas</option>
-                                    <option value="9">09 Pessoas</option>
-                                    <option value="10">10 Pessoas</option>
+                                    <option value="" selected disabled>@if(!$mesas->isEmpty())Selecione a mesa @else Nenhuma mesa disponível @endif</option>
+                                    @foreach ($mesas as $mesa)
+                                        <option value="{{ $mesa->idMesa }}">{{ $mesa->numero }} - {{ $mesa->capacidade }} Pessoas</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" id="date" name="date" required>
+                                <input type="date" id="date" name="date" required @if ($mesas->isEmpty()) disabled @endif>
                             </div>
                             <div class="col-md-6">
-                                <input type="time" id="time" name="time" required>
+                                <input type="time" id="time" name="time" required @if ($mesas->isEmpty()) disabled @endif>
                             </div>
                             <div class="col-md-12">
                                 <textarea id="message" name="message" rows="5" placeholder="Informações Adicionais ou Pedidos Especiais"></textarea>

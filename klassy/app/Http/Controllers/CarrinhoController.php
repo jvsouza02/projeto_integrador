@@ -14,6 +14,7 @@ class CarrinhoController extends Controller
         if (!Carrinho::where('id_cliente', Auth::user()->id)->exists()) {
             $carrinho = new Carrinho();
             $carrinho->id_cliente = Auth::user()->id;
+            $carrinho->save();
         }
 
         $carrinho = Carrinho::where('id_cliente', Auth::user()->id)->get();

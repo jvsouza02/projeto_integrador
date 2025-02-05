@@ -15,3 +15,4 @@
 <link rel="stylesheet" href="{{ asset('css/admin-pagination.css') }}">
 <!-- End layout styles -->
 <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.png') }}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">

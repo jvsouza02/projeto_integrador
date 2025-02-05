@@ -21,7 +21,7 @@ class MesaController extends Controller
         $mesa->status = $request->disponibilidade;
         $mesa->save();
 
-        return redirect()->route('home');
+        return redirect()->route('gerente.mesas');
     }
 
     public function editarMesa(Request $request)
@@ -45,7 +45,7 @@ class MesaController extends Controller
     {
         $mesa = Mesa::find($request->id);
         $mesa->delete();
-        
+
         return redirect()->route('gerente.mesas');
     }
 }

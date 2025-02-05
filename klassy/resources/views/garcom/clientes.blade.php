@@ -85,7 +85,7 @@
                     <td>{{ $reserva->numero_pessoas }}</td>
                     <td>{{ $reserva->data }}</td>
                     <td>{{ $reserva->hora }}</td>
-                    <td><a href="">Ver pedidos</a> | <a href="{{route('garcom.cancelar_reserva', $reserva->id)}}">Cancelar</a></td>
+                    <td><a href="">Ver pedidos</a> | <a href="{{route('garcom.cancelar_reserva', $reserva->idReserva)}}">Cancelar</a></td>
                 </tr>
             @endforeach
         </tbody>

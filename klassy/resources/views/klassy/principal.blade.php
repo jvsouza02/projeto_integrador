@@ -202,7 +202,6 @@
                 <div class="col-lg-4 col-xs-12">
                     <div class="left-text-content">
                         <p>® Klassy Cafe Restaurante
-
                             <br>Empresa Sediada em Natal-RN
                         </p>
                     </div>

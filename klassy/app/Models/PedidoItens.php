@@ -12,17 +12,17 @@ class PedidoItens extends Model
 
     protected $fillable = [
         'id',
-        'id_pedido',
-        'id_refeicao',
+        'idPedido',
+        'idRefeicao',
         'quantidade',
-        'valor_unitario',
+        'valorUnitario',
     ];
 
     public function pedido() {
-        return $this->belongsTo(Pedido::class, 'id_pedido');
+        return $this->belongsTo(Pedido::class, 'idPedido');
     }
 
     public function refeicao() {
-        return $this->belongsTo(Refeicao::class, 'id_refeicao');
+        return $this->belongsTo(Refeicao::class, 'idRefeicao');
     }
 }

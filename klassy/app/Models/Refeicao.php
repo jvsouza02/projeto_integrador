@@ -14,10 +14,10 @@ class Refeicao extends Model
     protected $fillable = ['nome', 'descricao', 'categoria', 'preco', 'disponivel', 'imagem'];
 
     public function carrinhoItens() {
-        return $this->hasMany(CarrinhoItens::class, 'id_refeicao');
+        return $this->hasMany(CarrinhoItens::class, 'idRefeicao');
     }
 
     public function pedidoItem() {
-        return $this->hasMany(PedidoItens::class, 'id_refeicao');
+        return $this->hasMany(PedidoItens::class, 'idRefeicao');
     }
 }

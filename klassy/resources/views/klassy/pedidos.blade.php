@@ -31,7 +31,7 @@
                             <td class="{{$pedido->status == 'Pronto' ? 'text-success' : 'text-primary'}}">{{ $pedido->status }}</td>
                             <td>
                                 @if ($pedido->status == 'Em espera')
-                                    <a href="{{ route('cancelar_pedido', $pedido->id) }}" class="btn btn-sm btn-danger">Cancelar</a>
+                                    <a href="{{ route('cancelar_pedido', $pedido->idPedido) }}" class="btn btn-sm btn-danger">Cancelar</a>
                                 @endif
                             </td>
                         </tr>

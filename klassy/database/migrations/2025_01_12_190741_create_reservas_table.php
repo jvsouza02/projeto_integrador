@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_cliente')->nullable()->constrained('clientes')->onDelete('cascade');
-            $table->foreignId('id_mesa')->constrained('mesas')->onDelete('cascade');
+            $table->id("idReserva");
+            $table->foreignId('idCliente')->nullable()->references('idCliente')->on('clientes')->onDelete('cascade');
+            $table->foreignId('idMesa')->references('idMesa')->on('mesas')->onDelete('cascade');
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');

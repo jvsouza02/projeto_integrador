@@ -7,26 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     protected $table = 'clientes';
-    protected $fillable = ['usuario_id'];
+    protected $fillable = ['idUsuario'];
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'idUsuario');
     }
 
     public function reserva() {
-        return $this->hasMany(Reserva::class, 'id_cliente');
+        return $this->hasMany(Reserva::class, 'idCliente');
     }
 
     public function pedido() {
-        return $this->hasMany(Pedido::class, 'id_cliente');
+        return $this->hasMany(Pedido::class, 'idCliente');
     }
 
     public function carrinho() {
-        return $this->hasMany(Carrinho::class, 'id_cliente');
+        return $this->hasMany(Carrinho::class, 'idCliente');
     }
 
     public function contato() {
-        return $this->hasMany(Contato::class, 'id_cliente');
+        return $this->hasMany(Contato::class, 'idCliente');
     }
 }

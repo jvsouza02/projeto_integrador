@@ -11,14 +11,14 @@ class Carrinho extends Model
 
     protected $fillable = [
         'id',
-        'id_cliente',
+        'idCliente',
     ];
 
     public function cliente() {
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+        return $this->belongsTo(Cliente::class, 'idCliente');
     }
 
     public function carrinhoItens() {
-        return $this->hasMany(CarrinhoItens::class, 'id_carrinho');
+        return $this->hasMany(CarrinhoItens::class, 'idCarrinho');
     }
 }

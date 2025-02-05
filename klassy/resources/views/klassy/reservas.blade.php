@@ -30,14 +30,14 @@
                         <td>{{ $reserva->hora }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#editModal{{ $reserva->id }}">Editar</button>
+                                data-target="#editModal{{ $reserva->idReserva }}">Editar</button>
                             <a class="btn btn-danger btn-sm"
-                                href="{{ route('cancelar_reserva', $reserva->id) }}">Cancelar</a>
+                                href="{{ route('cancelar_reserva', $reserva->idReserva) }}">Cancelar</a>
                         </td>
                     </tr>
                     <!-- Edit Modal -->
-                    <div class="modal fade" id="editModal{{ $reserva->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="editModalLabel{{ $reserva->id }}" aria-hidden="true">
+                    <div class="modal fade" id="editModal{{ $reserva->idReserva }}" tabindex="-1" role="dialog"
+                        aria-labelledby="editModalLabel{{ $reserva->idReserva }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -46,11 +46,11 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form id="editForm{{ $reserva->id }}" method="POST"
+                                <form id="editForm{{ $reserva->idReserva }}" method="POST"
                                     action="{{ route('atualizar_reserva') }}">
                                     @csrf
                                     <div class="modal-body">
-                                        <input type="hidden" name="id" id="reserva-id" value="{{ $reserva->id }}">
+                                        <input type="hidden" name="id" id="reserva-id" value="{{ $reserva->idReserva }}">
                                         <div class="form-group">
                                             <label for="nome">Nome</label>
                                             <input type="text" class="form-control" id="nome" name="nome"

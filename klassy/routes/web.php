@@ -60,8 +60,8 @@ Route::get('/pedidos', [GerenteController::class, 'mostrarPedidos'])->name('gere
 Route::get('/reservas', [GerenteController::class, 'mostrarReservas'])->name('gerente.reservas');
 // Tela de mesas
 Route::get('/mesas', [GerenteController::class, 'mostrarMesas'])->name('gerente.mesas');
-Route::get('/cadastrar_mesa', [MesaController::class, 'cadastrarMesa'])->name('gerente.cadastrar_mesa');
-Route::get('/editar_mesa/{id}', [MesaController::class, 'editarMesa'])->name('gerente.editar_mesa');
+Route::post('/cadastrar_mesa', [MesaController::class, 'cadastrarMesa'])->name('gerente.cadastrar_mesa');
+Route::post('/editar_mesa/{id}', [MesaController::class, 'editarMesa'])->name('gerente.editar_mesa');
 Route::get('/deletar_mesa/{id}', [MesaController::class, 'deletarMesa'])->name('gerente.deletar_mesa');
 // Tela de contatos
 Route::get('/contatos', [GerenteController::class, 'mostrarContatos'])->name('gerente.contatos');

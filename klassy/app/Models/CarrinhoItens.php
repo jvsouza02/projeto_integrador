@@ -12,16 +12,16 @@ class CarrinhoItens extends Model
 
     protected $fillable = [
         'id',
-        'id_carrinho',
-        'id_refeicao',
+        'idCarrinho',
+        'idRefeicao',
         'quantidade',
     ];
 
     public function carrinho() {
-        return $this->belongsTo(Carrinho::class, 'id_carrinho');
+        return $this->belongsTo(Carrinho::class, 'idCarrinho');
     }
 
     public function refeicao() {
-        return $this->belongsTo(Refeicao::class, 'id_refeicao');
+        return $this->belongsTo(Refeicao::class, 'idRefeicao');
     }
 }

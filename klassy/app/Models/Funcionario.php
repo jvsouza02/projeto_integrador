@@ -8,7 +8,7 @@ use App\Models\User;
 class Funcionario extends Model
 {
     protected $fillable = [
-        'cargo', 'salario', 'foto', 'usuario_id'
+        'cargo', 'salario', 'foto', 'idUsuario'
     ];
 
     public function usuario()
