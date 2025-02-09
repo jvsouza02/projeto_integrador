@@ -9,6 +9,7 @@ use App\Models\Refeicao;
 class CarrinhoItens extends Model
 {
     protected $table = 'carrinho_itens';
+    protected $primaryKey = 'idCarrinhoItem';
 
     protected $fillable = [
         'id',

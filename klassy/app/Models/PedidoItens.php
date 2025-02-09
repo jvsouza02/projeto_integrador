@@ -9,6 +9,7 @@ use App\Models\Refeicao;
 class PedidoItens extends Model
 {
     protected $table = 'pedido_itens';
+    protected $primaryKey = 'idPedidoItem';
 
     protected $fillable = [
         'id',

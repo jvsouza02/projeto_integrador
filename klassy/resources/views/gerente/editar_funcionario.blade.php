@@ -13,7 +13,7 @@
                 </div>
             @endif
         </div>
-        <form class="form-edited" action="{{ route('atualizar_funcionario', $funcionario->id) }}" method="POST"
+        <form class="form-edited" action="{{ route('atualizar_funcionario', $funcionario->idFuncionario) }}" method="POST"
             enctype="multipart/form-data">
             <h1 class="text-2xl text-bold text-center mb-3">Editar Funcionário</h1>
             @csrf

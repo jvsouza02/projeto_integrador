@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     protected $table = 'clientes';
+    protected $primaryKey = 'idCliente';
     protected $fillable = ['idUsuario'];
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function reserva() {

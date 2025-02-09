@@ -25,8 +25,7 @@
                                     <p class='description'>{{ $refeicao->descricao }}</p>
                                     <div class="main-text-button">
                                         <div class="scroll-to-section">
-                                            <a href="{{ route('adicionar_carrinho', $refeicao->idRefeicao) }}">Adicionar ao
-                                            carrinho<i class="fa fa-angle-down"></i></a>
+                                            <a href="{{ route('adicionar_carrinho', $refeicao->idRefeicao) }}">Adicionar unidade<i class="fa fa-angle-down"></i></a>
                                         </div>
                                     </div>
                                 </div>

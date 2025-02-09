@@ -8,6 +8,7 @@ use App\Models\CarrinhoItens;
 class Carrinho extends Model
 {
     protected $table = 'carrinhos';
+    protected $primaryKey = 'idCarrinho';
 
     protected $fillable = [
         'id',

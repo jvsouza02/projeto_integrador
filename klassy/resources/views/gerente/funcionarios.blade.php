@@ -68,9 +68,9 @@
                             <p class="card-text"><strong>Cargo:</strong> {{ $funcionario->cargo }}</p>
                             <p class="card-text"><strong>Salário:</strong> {{ $funcionario->salario }}</p>
                             <div class="btn-container">
-                                <a href="{{ route('editar_funcionario', $funcionario->id) }}"
+                                <a href="{{ route('editar_funcionario', $funcionario->idFuncionario) }}"
                                     class="btn btn-primary">Editar</a>
-                                <a href="{{ route('deletar_funcionario', $funcionario->usuario_id) }}"
+                                <a href="{{ route('deletar_funcionario', $funcionario->idUsuario) }}"
                                     class="btn btn-danger">Deletar</a>
                             </div>
                         </div>

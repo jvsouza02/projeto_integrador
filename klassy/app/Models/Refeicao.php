@@ -11,6 +11,7 @@ class Refeicao extends Model
 {
 
     protected $table = 'refeicoes';
+    protected $primaryKey = 'idRefeicao';
     protected $fillable = ['nome', 'descricao', 'categoria', 'preco', 'disponivel', 'imagem'];
 
     public function carrinhoItens() {

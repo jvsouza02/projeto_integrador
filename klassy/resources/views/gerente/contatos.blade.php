@@ -20,7 +20,7 @@
                         <td>{{ $contato->email }}</td>
                         <td>{{ $contato->assunto }}</td>
                         <td>{{ $contato->mensagem }}</td>
-                        <td><a class="btn btn-danger" href="{{route('deletar_contato', $contato->id)}}">Deletar</a>
+                        <td><a class="btn btn-danger" href="{{route('deletar_contato', $contato->idContato)}}">Deletar</a>
                         </td>
                     </tr>
                 @endforeach

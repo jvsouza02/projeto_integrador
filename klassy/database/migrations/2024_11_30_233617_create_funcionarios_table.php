@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id("idFuncionario");
-            $table->foreignId('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade');
+            $table->foreignId('idUsuario')->constrained('users')->onDelete('cascade');
             $table->string('cargo');
             $table->decimal('salario', 12, 2)->default(0);
             $table->string('foto')->nullable();

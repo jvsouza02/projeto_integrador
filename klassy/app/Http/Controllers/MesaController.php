@@ -45,7 +45,6 @@ class MesaController extends Controller
     {
         $mesa = Mesa::find($request->id);
         $mesa->delete();
-
         return redirect()->route('gerente.mesas');
     }
 }

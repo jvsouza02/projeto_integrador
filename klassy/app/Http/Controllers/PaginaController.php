@@ -19,43 +19,49 @@ class PaginaController extends Controller
     {
         if (!Auth::id()) {
             $data = Refeicao::all();
-            $mesas = Mesa::where('status', 'Disponível')->get();
-            return view('klassy.principal', compact('data', 'mesas'));
+            $mesas = Mesa::where('status', 'Disponivel')->get();
+            $carrinho_itens_count = 0;
+            return view('klassy.principal', compact('data', 'mesas', 'carrinho_itens_count'));
         } else {
             $usuario = Auth::user()->tipo_usuario;
             if ($usuario == 'Gerente') {
-                if (!Funcionario::where('usuario_id', Auth::user()->id)->exists()) {
+                if (!Funcionario::where('idUsuario', Auth::user()->id)->exists()) {
                     $funcionario = new Funcionario();
-                    $funcionario->usuario_id = Auth::user()->id;
+                    $funcionario->idUsuario = Auth::user()->id;
                     $funcionario->cargo = 'Gerente';
                     $funcionario->save();
                 }
                 return redirect()->route('gerente.usuarios');
             } else if ($usuario == 'Cliente') {
-                    if (!Cliente::where('usuario_id', Auth::user()->id)->exists() && !Funcionario::where('usuario_id', Auth::user()->id)->exists()) {
-                        if (User::where('tipo_usuario', 'Gerente')->exists()) {
-                            $cliente = new Cliente();
-                            $cliente->usuario_id = Auth::user()->id;
-                            $cliente->save();
-                        } else {
-                            $funcionario = new Funcionario();
-                            $funcionario->usuario_id = Auth::user()->id;
-                            $funcionario->cargo = 'Gerente';
-                            Auth::user()->tipo_usuario = 'Gerente';
-                            $funcionario->save();
-                            Auth::user()->save();
-                        }
+                if (!Cliente::where('idUsuario', Auth::user()->id)->exists() && !Funcionario::where('idUsuario', Auth::user()->id)->exists()) {
+                    if (User::where('tipo_usuario', 'Gerente')->exists()) {
+                        $cliente = new Cliente();
+                        $cliente->idUsuario = Auth::user()->id;
+                        $cliente->save();
+                    } else {
+                        $funcionario = new Funcionario();
+                        $funcionario->idUsuario = Auth::user()->id;
+                        $funcionario->cargo = 'Gerente';
+                        Auth::user()->tipo_usuario = 'Gerente';
+                        $funcionario->save();
+                        Auth::user()->save();
                     }
+                }
 
                 $data = Refeicao::all();
-                $mesas = Mesa::where('status', 'Disponível')->get();
-                if (Carrinho::exists()) {
-                    $carrinho = Carrinho::where('id_cliente', Auth::user()->id)->get();
-                    $carrinho_itens = CarrinhoItens::where('id_carrinho', $carrinho->id)->count();
+                $mesas = Mesa::where('status', 'Disponivel')->get();
+                if (Cliente::where('idUsuario', Auth::user()->id)->exists()) {
+                    $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
+                    if ($carrinho) {
+                        $carrinho_itens_count = CarrinhoItens::where('idCarrinho', $carrinho->idCarrinho)->count();
+                    } else {
+                        $carrinho_itens_count = 0;
+                    }
                 } else {
-                    $carrinho_itens = 0;
+                    $carrinho_itens_count = 0;
                 }
-                return view('klassy.principal', compact('data', 'carrinho_itens', 'mesas'));
+
+                return view('klassy.principal', compact('data', 'carrinho_itens_count', 'mesas'));
             } else if ($usuario == 'Garçom') {
                 return redirect()->route('garcom.pedidos');
             } else if ($usuario == 'Cozinheiro') {

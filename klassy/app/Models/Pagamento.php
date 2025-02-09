@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pagamento extends Model
 {
     protected $table = 'pagamentos';
+    protected $primaryKey = 'idPagamento';
     protected $fillable = ['id', 'idPedido', 'valor'];
 
     public function pedido() {

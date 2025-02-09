@@ -24,24 +24,24 @@
                         <td>{{ $mesa->status }}</td>
                         <td>
                             <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#editarMesaModal{{ $mesa->id }}"><i class="bi bi-pencil-fill"></i></button>
-                            <a class="btn btn-danger" href="{{ route('gerente.deletar_mesa', $mesa->id) }}"><i
+                                data-target="#editarMesaModal{{ $mesa->idMesa }}"><i class="bi bi-pencil-fill"></i></button>
+                            <a class="btn btn-danger" href="{{ route('gerente.deletar_mesa', $mesa->idMesa) }}"><i
                                     class="bi bi-trash-fill"></i></a>
                         </td>
                     </tr>
                     <!-- Modal Editar -->
-                    <div class="modal fade" id="editarMesaModal{{ $mesa->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="editarMesaModalLabel{{ $mesa->id }}" aria-hidden="true">
+                    <div class="modal fade" id="editarMesaModal{{ $mesa->idMesa}}" tabindex="-1" role="dialog"
+                        aria-labelledby="editarMesaModalLabel{{ $mesa->idMesa }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editarMesaModalLabel{{ $mesa->id }}">Editar Mesa</h5>
+                                    <h5 class="modal-title" id="editarMesaModalLabel{{ $mesa->idMesa }}">Editar Mesa</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('gerente.editar_mesa', $mesa->id) }}" method="POST">
+                                    <form action="{{ route('gerente.editar_mesa', $mesa->idMesa) }}" method="POST">
                                         @csrf
                                         <div class="form-group">
                                             <label for="numeroMesa">Número da mesa</label>

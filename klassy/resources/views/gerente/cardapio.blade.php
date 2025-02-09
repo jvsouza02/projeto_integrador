@@ -83,9 +83,9 @@
                                         {{ $refeicao->disponivel ? 'Sim' : 'Não' }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{ route('editar_refeicao', $refeicao->id) }}"
+                                    <a href="{{ route('editar_refeicao', $refeicao->idRefeicao) }}"
                                         class="btn btn-primary">Editar</a>
-                                    <a href="{{ route('deletar_refeicao', $refeicao->id) }}"
+                                    <a href="{{ route('deletar_refeicao', $refeicao->idRefeicao) }}"
                                         class="btn btn-danger">Deletar</a>
                                 </div>
                             </div>

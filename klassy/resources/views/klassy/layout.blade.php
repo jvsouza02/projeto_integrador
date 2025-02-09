@@ -18,13 +18,38 @@
     <title>Klassy</title>
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/font-awesome.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/templatemo-klassy-cafe.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/owl-carousel.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/lightbox.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/templatemo-klassy-cafe.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl-carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
 
+    <style>
+        /* Força a cor do texto em inputs do tipo time */
+        input[type="time"] {
+            color: #000 !important;
+        }
 
+        /* Estiliza os componentes internos do input time */
+        input[type="time"]::-webkit-datetime-edit {
+            color: #000 !important;
+            /* Cor do texto */
+        }
+
+        input[type="time"]::-webkit-datetime-edit-hour-field,
+        input[type="time"]::-webkit-datetime-edit-minute-field,
+        input[type="time"]::-webkit-datetime-edit-second-field,
+        input[type="time"]::-webkit-datetime-edit-ampm-field {
+            color: #000 !important;
+            /* Cor dos números */
+        }
+
+        /* Remove o estilo padrão do ícone */
+        input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0);
+            /* Mantém o ícone preto */
+        }
+    </style>
 </head>
 
 <body>
@@ -51,25 +76,34 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- Logo -->
-                        <a href="{{route('home')}}" class="logo">
-                            <img src="{{asset('assets/images/klassy-logo.png')}}" alt="Klassy Cafe HTML Template">
+                        <a href="{{ route('home') }}" class="logo">
+                            <img src="{{ asset('assets/images/klassy-logo.png') }}" alt="Klassy Cafe HTML Template">
                         </a>
 
                         <!-- Menu -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Início</a></li>
-                            <li class="scroll-to-section"><a href="{{route('home', '#menu')}}">Cardápio</a></li>
-                            <li><a href="{{ route('cliente.reservas' )}}">Reservas</a></li>
+                            <li class="scroll-to-section"><a href="{{ route('home', '#menu') }}">Cardápio</a></li>
+                            <li class="submenu">
+                                <a href="javascript:void(0);">Reservas</a>
+                                <ul>
+                                    <li><a href="{{ route('home', '#reservation') }}">Fazer Reserva</a></li>
+                                    <li><a href="{{ route('cliente.reservas') }}">Minhas Reservas</a></li>
+                                </ul>
+                            </li>
                             <li class="scroll-to-section"><a href="#about">Sobre Nós</a></li>
 
                             <!-- Carrinho com Dropdown -->
                             <li class="submenu">
-                                <a href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->id : 0) }}">
+                                <a
+                                    href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->cliente->idCliente : 0) }}">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span>{{Auth::check() ? $carrinho_itens : 0 }}</span>
+                                    <span>{{ $carrinho_itens_count }}</span>
                                 </a>
                                 <ul>
-                                    <li><a href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->id : 0) }}">Ver Carrinho</a></li>
+                                    <li><a
+                                            href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->cliente->idCliente : 0) }}">Ver
+                                            Carrinho</a></li>
                                     <li><a href="#clear-cart">Limpar Carrinho</a></li>
                                     <li><a href="{{ route('mostrar_pedidos') }}">Meus Pedidos</a></li>
                                 </ul>
@@ -102,8 +136,8 @@
     @yield('content')
 
     <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery-3.7.1.min.js')}}"></script>
-    <script src="{{ asset('assets/js/jquery.mask.min.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
 
     <script>
         $(function() {
@@ -114,7 +148,6 @@
     <!-- Bootstrap -->
     <script src="{{ asset('assets/js/popper.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Plugins -->
     <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>

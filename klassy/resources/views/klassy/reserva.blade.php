@@ -7,7 +7,7 @@
                     <form id="reservation" action="{{route('reservar')}}" method="post">
                         @csrf
                         <div class="row">
-                            <input type="text" name="id_cliente" id="id_cliente" hidden value="{{Auth::check() ? Auth::user()->idUsuario : ''}}">
+                            <input type="text" name="id_cliente" id="id_cliente" hidden value="{{Auth::check() ? Auth::user()->cliente->idCliente : ''}}">
                             <div class="col-md-6">
                                 <input type="text" id="nome" name="nome" placeholder="Seu Nome" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                             </div>
@@ -18,7 +18,7 @@
                                 <input type="text" id="telefone" name="telefone" placeholder="Número de Telefone" required>
                             </div>
                             <div class="col-md-6">
-                                <select id="numero_pessoas" name="numero_pessoas" required class="form-control">
+                                <select id="id_mesa" name="id_mesa" required class="form-control">
                                     <option value="" selected disabled>@if(!$mesas->isEmpty())Selecione a mesa @else Nenhuma mesa disponível @endif</option>
                                     @foreach ($mesas as $mesa)
                                         <option value="{{ $mesa->idMesa }}">{{ $mesa->numero }} - {{ $mesa->capacidade }} Pessoas</option>

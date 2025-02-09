@@ -13,7 +13,7 @@
                 </div>
             @endif
         </div>
-        <form class="form-edited" action="{{ route('atualizar_refeicao', $refeicao->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form-edited" action="{{ route('atualizar_refeicao', $refeicao->idRefeicao) }}" method="POST" enctype="multipart/form-data">
             <h1 class="text-2xl text-bold text-center">Editar Refeicao</h1>
             @csrf
             <div class="mb-3 mt-3">

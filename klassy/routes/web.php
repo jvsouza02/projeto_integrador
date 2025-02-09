@@ -25,10 +25,11 @@ Route::get('/cancelar_reserva/{id}', [ReservaController::class, 'cancelarReserva
 // Carrinho
 Route::get('/adicionar_carrinho/{id}', [CarrinhoController::class, 'adicionarCarrinho'])->name('adicionar_carrinho')->middleware('auth');
 Route::get('/carrinho/{id?}', [CarrinhoController::class, 'mostrarCarrinho'])->name('mostrar_carrinho')->middleware('auth');
+Route::post('/carrinho/atualizar', [CarrinhoController::class, 'atualizarCarrinho'])->name('carrinho_atualizar');
 Route::get('/remover_carrinho/{id}', [CarrinhoController::class, 'removerCarrinho'])->name('remover_carrinho');
 Route::get('/limpar_carrinho', [CarrinhoController::class, 'limparCarrinho'])->name('limpar_carrinho');
 // Pedido
-Route::post('/finalizar_pedido', [PedidoController::class, 'finalizarPedido'])->name('finalizar_pedido');
+Route::get('/finalizar_pedido', [PedidoController::class, 'finalizarPedido'])->name('finalizar_pedido');
 Route::get('/cliente_pedidos', [PedidoController::class, 'mostrarPedidos'])->name('mostrar_pedidos')->middleware('auth');
 Route::get('/cancelar_pedido/{id}', [PedidoController::class, 'cancelarPedido'])->name('cancelar_pedido');
 // Contato

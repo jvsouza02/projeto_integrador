@@ -69,11 +69,11 @@ class User extends Authenticatable
 
     public function cliente()
     {
-        return $this->hasOne(Cliente::class);
+        return $this->hasOne(Cliente::class, 'idUsuario');
     }
 
     public function funcionario()
     {
-        return $this->hasOne(Funcionario::class);
+        return $this->hasOne(Funcionario::class, 'idUsuario');
     }
 }

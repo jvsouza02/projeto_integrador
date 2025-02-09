@@ -27,8 +27,8 @@ class FuncionarioController extends Controller
             'tipo_usuario' => $request->cargo,
         ]);
 
-        $funcionario = Funcionario::create([
-            'usuario_id' => $usuario->id,
+        Funcionario::create([
+            'idUsuario' => $usuario->id,
             'cargo' => $request->cargo,
             'salario' => $request->salario,
             'foto' => $caminho_imagem

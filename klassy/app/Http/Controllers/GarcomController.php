@@ -32,7 +32,8 @@ class GarcomController extends Controller
         ]);
 
         $reserva = new Reserva();
-        $reserva->id_mesa = $request->id_mesa;
+        $reserva->idCliente = $request->id_cliente;
+        $reserva->idMesa = $request->id_mesa;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;

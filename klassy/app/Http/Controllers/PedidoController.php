@@ -3,56 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrinho;
+use App\Models\CarrinhoItens;
 use App\Models\Pagamento;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
+use Auth;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
-    public function finalizarPedido(Request $request) {
-        $carrinho = Carrinho::where('id_cliente', auth()->user()->id)->get();
+    public function finalizarPedido(Request $request)
+    {
+        // Busca o CARRINHO do cliente
+        $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
+        // Busca os ITENS do carrinho (não o carrinho em si)
+        $itensCarrinho = CarrinhoItens::where('idCarrinho', $carrinho->idCarrinho)->get();
+
+        // Cria e salva o PEDIDO primeiro
         $pedido = new Pedido();
-        $pedido->id_cliente = auth()->user()->id;
+        $pedido->idCliente = Auth::user()->cliente->idCliente;
+        $pedido->valorTotal = 0;
         $pedido->status = 'Em espera';
+        $pedido->save(); // Salva para gerar o ID
 
-        $pedido_itens = new PedidoItens();
-        foreach ($carrinho as $item) {
-            $pedido_itens->id_pedido = $pedido->id;
-            $pedido_itens->id_refeicao = $item->id_refeicao;
-            $pedido_itens->quantidade = $item->quantidade;
-            $pedido_itens->valor_unitario = $item->refeicao->preco;
-            $pedido_itens->save();
+        // Calcula o valorTotal e vincula os itens
+        $valorTotal = 0;
+
+        foreach ($itensCarrinho as $item) {
+            // Cria uma NOVA instância para cada item
+            $pedidoItem = new PedidoItens();
+            $pedidoItem->idPedido = $pedido->idPedido;
+            $pedidoItem->idRefeicao = $item->idRefeicao;
+            $pedidoItem->quantidade = $item->quantidade;
+            $pedidoItem->valorUnitario = $item->refeicao->preco;
+            $pedidoItem->save();
+
+            // Acumula o valor total
+            $valorTotal += $item->quantidade * $item->refeicao->preco;
         }
 
-        foreach ($pedido_itens as $item) {
-            $pedido->valor_total += $item->quantidade * $item->valor_unitario;
-        }
-
+        // Atualiza o valorTotal do pedido
+        $pedido->valorTotal = $valorTotal;
         $pedido->save();
 
+        // Cria o pagamento com o valor correto
         $pagamento = new Pagamento();
-        $pagamento->id_pedido = $pedido->id;
-        $pagamento->valor = $pedido->valor_total;
+        $pagamento->idPedido = $pedido->idPedido;
+        $pagamento->valor = $pedido->valorTotal;
         $pagamento->save();
 
-        Carrinho::where('id_cliente', auth()->user()->id)->delete();
+        // Limpa o carrinho (ajuste para a sua estrutura real)
+        $carrinho->delete();
+
         return redirect()->back();
     }
 
-    public function mostrarPedidos() {
-        $pedidos = Pedido::where('id_cliente', auth()->user()->id)->get();
-        $pedido_itens = PedidoItens::where('id_pedido', $pedidos->id)->get();
-        $carrinho_itens = Carrinho::where('id_cliente', auth()->user()->id)->get();
-        return view('klassy.pedidos', compact('carrinho_itens', 'pedido_itens'));
+    public function mostrarPedidos()
+    {
+        // Verifica se o usuário está autenticado e tem um cliente vinculado
+        if (!Auth::check() || !Auth::user()->cliente) {
+            return redirect()->route('login')->with('error', 'Faça login para ver seus pedidos.');
+        }
+
+        // Obtém o ID do cliente autenticado
+        $clienteId = Auth::user()->cliente->idCliente;
+
+        // Busca todos os pedidos do cliente com seus itens (usando eager loading)
+        $pedidos = Pedido::where('idCliente', $clienteId)
+            ->with('pedidoItens.refeicao') // Carrega os itens e as refeições relacionadas
+            ->orderBy('created_at', 'desc') // Ordena do mais recente para o mais antigo
+            ->get();
+
+        $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
+        if ($carrinho) {
+            $carrinho_itens_count = CarrinhoItens::where('idCarrinho', $carrinho->idCarrinho)->count();
+        } else {
+            $carrinho_itens_count = 0;
+        }
+        return view('klassy.pedidos', compact('pedidos', 'carrinho_itens_count'));
     }
 
-    public function cancelarPedido($id) {
+    public function cancelarPedido($id)
+    {
         Pedido::find($id)->delete();
         return redirect()->back();
     }
 
-    public function alterarStatus(Request $request) {
+    public function alterarStatus(Request $request)
+    {
         $pedido = Pedido::find($request->id_pedido);
         $pedido->status = $request->status;
         $pedido->save();

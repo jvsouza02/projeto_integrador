@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrinho;
+use App\Models\CarrinhoItens;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
 use Auth;
@@ -23,8 +24,8 @@ class ReservaController extends Controller
         ]);
 
         $reserva = new Reserva();
-        $reserva->id_usuario = $request->id_cliente;
-        $reserva->id_mesa = $request->id_mesa;
+        $reserva->idCliente = $request->id_cliente;
+        $reserva->idMesa = $request->id_mesa;
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;
@@ -38,15 +39,22 @@ class ReservaController extends Controller
 
     public function mostrarReservas()
     {
-        $reservas = Reserva::where('id_usuario', Auth::user()->id)->get();
-        $quantidade_carrinho = Carrinho::where('id_usuario', Auth::user()->id)->count();
+        $reservas = Reserva::where('idCliente', Auth::user()->cliente->idCliente)->get();
 
-        return view('klassy.reservas', compact('reservas', 'quantidade_carrinho'));
+        $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
+        if ($carrinho) {
+            $carrinho_itens_count = CarrinhoItens::where('idCarrinho', $carrinho->idCarrinho)->count();
+        } else {
+            $carrinho_itens_count = 0;
+        }
+
+        return view('klassy.reservas', compact('reservas', 'carrinho_itens_count'));
     }
 
     public function atualizarReserva(Request $request)
     {
         $request->validate([
+            'idReserva' => 'required|integer',
             'nome' => 'required|string',
             'email' => 'required|string|email',
             'telefone' => 'required|string',
@@ -55,7 +63,7 @@ class ReservaController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        $reserva = Reserva::find($request->id);
+        $reserva = Reserva::where('idReserva', $request->idReserva)->first();
         $reserva->nome = $request->nome;
         $reserva->email = $request->email;
         $reserva->telefone = $request->telefone;

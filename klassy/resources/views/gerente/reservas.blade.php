@@ -24,7 +24,7 @@
                         <td>{{ $reserva->mesa->numero }}</td>
                         <td>{{ $reserva->data }}</td>
                         <td>{{ $reserva->hora }}</td>
-                        <td><a class="btn btn-danger" href="{{route('cancelar_reserva', $reserva->id)}}">Cancelar</a>
+                        <td><a class="btn btn-danger" href="{{route('cancelar_reserva', $reserva->idReserva)}}">Cancelar</a>
                         </td>
                     </tr>
                 @endforeach
