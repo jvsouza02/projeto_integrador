@@ -3,6 +3,11 @@
 @section('content')
     <div class="d-flex flex-column">
         <div>
+            @if (@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -13,7 +18,8 @@
                 </div>
             @endif
         </div>
-        <form class="form-edited" action="{{ route('atualizar_refeicao', $refeicao->idRefeicao) }}" method="POST" enctype="multipart/form-data">
+        <form class="form-edited" action="{{ route('atualizar_refeicao', $refeicao->idRefeicao) }}" method="POST"
+            enctype="multipart/form-data">
             <h1 class="text-2xl text-bold text-center">Editar Refeicao</h1>
             @csrf
             <div class="mb-3 mt-3">
@@ -26,11 +32,12 @@
             </div>
             <div class="mb-3">
                 <label for="categoria">Categoria:</label>
-                <select name="categoria" id="categoria" value="{{ $refeicao->categoria }}">
-                    <option value="Prato">Prato</option>
-                    <option value="Bebida">Bebida</option>
-                    <option value="Lanche">Lanche</option>
-                    <option value="Sobremesa">Sobremesa</option>
+                <select name="categoria" id="categoria">
+                    <option value="Prato" {{ $refeicao->categoria === 'Prato' ? 'selected' : '' }}>Prato</option>
+                    <option value="Bebida" {{ $refeicao->categoria === 'Bebida' ? 'selected' : '' }}>Bebida</option>
+                    <option value="Lanche" {{ $refeicao->categoria === 'Lanche' ? 'selected' : '' }}>Lanche</option>
+                    <option value="Sobremesa" {{ $refeicao->categoria === 'Sobremesa' ? 'selected' : '' }}>Sobremesa
+                    </option>
                 </select>
             </div>
             <div class="mb-3">

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pagamentos', function (Blueprint $table) {
             $table->id("idPagamento");
-            $table->foreignId('idPedido')->references('idPedido')->on('pedidos');
+            $table->foreignId('idPedido')->references('idPedido')->on('pedidos')->onDelete('cascade');
             $table->decimal('valor', 10, 2);
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ class Reserva extends Model
     protected $primaryKey = 'idReserva';
 
     protected $fillable = [
-        'idCliente', 'id_mesa', 'nome', 'email', 'telefone', 'data', 'hora', 'observacao'
+        'idCliente', 'idMesa', 'nome', 'email', 'telefone', 'data', 'hora', 'observacao'
     ];
 
     public function cliente() {

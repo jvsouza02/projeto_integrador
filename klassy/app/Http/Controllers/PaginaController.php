@@ -14,7 +14,6 @@ use Auth;
 
 class PaginaController extends Controller
 {
-
     public function index()
     {
         if (!Auth::id()) {
@@ -31,7 +30,7 @@ class PaginaController extends Controller
                     $funcionario->cargo = 'Gerente';
                     $funcionario->save();
                 }
-                return redirect()->route('gerente.usuarios');
+                return redirect()->route('gerente.relatorios');
             } else if ($usuario == 'Cliente') {
                 if (!Cliente::where('idUsuario', Auth::user()->id)->exists() && !Funcionario::where('idUsuario', Auth::user()->id)->exists()) {
                     if (User::where('tipo_usuario', 'Gerente')->exists()) {
@@ -45,6 +44,7 @@ class PaginaController extends Controller
                         Auth::user()->tipo_usuario = 'Gerente';
                         $funcionario->save();
                         Auth::user()->save();
+                        return redirect()->route('gerente.relatorios');
                     }
                 }
 
@@ -68,6 +68,21 @@ class PaginaController extends Controller
                 return redirect()->route('cozinheiro.pedidos');
             }
         }
-
     }
+    public function filter(Request $request)
+    {
+        $category = $request->input('category');
+
+        if ($category === 'Todas') {
+            $meals = Refeicao::where('disponivel', 1)->get();
+        } else {
+            $meals = Refeicao::where('categoria', $category)
+                ->where('disponivel', 1)
+                ->get();
+        }
+
+        // Verifique se a partial view existe e se a variável $meals possui dados
+        return response()->json(['html' => view('partials.menu_items', compact('meals'))->render()]);
+    }
+
 }

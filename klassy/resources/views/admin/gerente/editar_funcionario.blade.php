@@ -3,6 +3,11 @@
 @section('content')
     <div class="d-flex flex-column">
         <div>
+            @if(@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -30,8 +35,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="salario">Salário:</label>
-                <input type="number" step="0.01" id="salario" name="salario" value="{{ $funcionario->salario }}" required>
+                <label for="salario">Salário(R$):</label>
+                <input type="text" id="salario" name="salario" value="{{ $funcionario->salario }}" required>
             </div>
             <div class="mb-3">
                 <label for="imagem">Foto:</label>

@@ -82,4 +82,10 @@ class CarrinhoController extends Controller
         }
         return redirect()->back();
     }
+
+    public function limparCarrinho() {
+        $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
+        $carrinho->delete();
+        return redirect()->back();
+    }
 }

@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="container">
+        <div>
+            @if(@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         <h1 class="text-2xl text-bold text-center mb-3">Usuários</h1>
         <table class="table table-striped table-hover table-dark">
             <thead class="thead-dark">

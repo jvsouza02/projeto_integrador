@@ -1,6 +1,21 @@
 @extends('klassy.layout')
 
 @section('content')
+    <div>
+        @if (@session('success'))
+                {{ session('success') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
     <!-- ***** Main Banner Area Start ***** -->
     <div id="top">
         <div class="container-fluid">
@@ -95,6 +110,8 @@
                                 <div class="col-lg-12">
                                     <h4>Contate-Nos</h4>
                                 </div>
+                                <input type="text" name="id_cliente" id="id_cliente" hidden
+                                    value="{{ Auth::check() ? Auth::user()->cliente->idCliente : '' }}">
                                 <div class="col-lg-6 col-sm-12">
                                     <fieldset>
                                         <input name="nome" type="text" id="name" placeholder="Seu Nome*"

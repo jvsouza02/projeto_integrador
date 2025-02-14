@@ -7,10 +7,10 @@
     </a>
 </li>
 <li class="nav-item menu-items">
-    <a class="nav-link" href="{{ route('garcom.clientes') }}">
+    <a class="nav-link" href="{{ route('garcom.reservas') }}">
     <span class="menu-icon">
         <i class="mdi mdi-food"></i>
     </span>
-    <span class="menu-title">Clientes</span>
+    <span class="menu-title">Reservas</span>
     </a>
 </li>

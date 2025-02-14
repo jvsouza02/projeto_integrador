@@ -55,14 +55,14 @@ class PedidoController extends Controller
         // Limpa o carrinho (ajuste para a sua estrutura real)
         $carrinho->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Pedido realizado com sucesso!');
     }
 
     public function mostrarPedidos()
     {
         // Verifica se o usuário está autenticado e tem um cliente vinculado
         if (!Auth::check() || !Auth::user()->cliente) {
-            return redirect()->route('login')->with('error', 'Faça login para ver seus pedidos.');
+            return redirect()->route('login');
         }
 
         // Obtém o ID do cliente autenticado
@@ -85,15 +85,15 @@ class PedidoController extends Controller
 
     public function cancelarPedido($id)
     {
-        Pedido::find($id)->delete();
-        return redirect()->back();
+        Pedido::where('idPedido', $id)->delete();
+        return redirect()->back()->with('success', 'Pedido excluido com sucesso!');
     }
 
     public function alterarStatus(Request $request)
     {
-        $pedido = Pedido::find($request->id_pedido);
-        $pedido->status = $request->status;
+        $pedido = Pedido::where('idPedido', $request->idPedido)->first();
+        $pedido->status = $request->novo_status;
         $pedido->save();
-        return redirect()->route('cozinheiro.pedidos');
+        return redirect()->back()->with('success', 'Status alterado com sucesso!');
     }
 }

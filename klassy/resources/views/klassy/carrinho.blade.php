@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="container mt-40">
+        <div>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         @if ($carrinho_itens_count == 0)
             <div class="alert alert-danger text-center py-5">
                 <h1 class="mb-4">Seu carrinho está vazio</h1>
@@ -36,7 +52,7 @@
                                         <h5 class="mb-0">{{ $item->refeicao->nome }}</h5>
                                     </td>
                                     <td>
-                                        <input type="number" name="quantidade[{{ $item->idCarrinhoItem }}]"
+                                        <input type="number" min="1" name="quantidade[{{ $item->idCarrinhoItem }}]"
                                             value="{{ $item->quantidade }}" class="form-control form-control-sm"
                                             min="1" style="width: 80px;">
                                     </td>
@@ -80,7 +96,7 @@
                     <div class="modal-content">
                         <div class="modal-header bg-dark text-white">
                             <h5 class="modal-title" id="finalizarModalLabel">Confirmação de Pedido</h5>
-                            <button type="button" class="btn-close btn-close-white" data-dismiss="modal"
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -92,7 +108,7 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
+                            <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
                                 <i class="fas fa-times me-2"></i>Cancelar
                             </button>
                             <a href="{{ route('finalizar_pedido') }}" class="btn btn-success px-4">

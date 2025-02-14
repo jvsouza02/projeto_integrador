@@ -15,6 +15,8 @@ use App\Http\Controllers\FuncionarioController;
 
 /* =-=-=-= Controle de páginas =-=-=-= */
 Route::get('/', [PaginaController::class, 'index'])->name('home');
+Route::get('/menu/filter', [PaginaController::class, 'filter'])->name('menu.filter');
+
 
 /* =-=-=-= Cliente =-=-=-= */
 // Reserva
@@ -40,19 +42,21 @@ Route::post('/alterar_status', [PedidoController::class, 'alterarStatus'])->name
 
 /* =-=-=-= Gerente =-=-=-= */
 
+// Tela de relatórios
+Route::get('/relatorios', [GerenteController::class, 'mostrarRelatorios'])->name('gerente.relatorios');
 // Tela de usuários
 Route::get('/usuarios', [GerenteController::class, 'mostrarUsuarios'])->name('gerente.usuarios');
 Route::post('/deletar_usuario/{id}', [GerenteController::class, 'deletarUsuario'])->name('gerente.deletar_usuario');
 // Tela de cardápio
 Route::get('/cardapio', [GerenteController::class, 'mostrarCardapio'])->name('gerente.cardapio');
 Route::post('/adicionar_refeicao', [RefeicaoController::class, 'adicionarRefeicao'])->name('adicionar_refeicao');
-Route::get('/editar_refeicao/{id}', [RefeicaoController::class, 'editarRefeicao'])->name('editar_refeicao');
+Route::get('/editar_refeicao/{id?}', [RefeicaoController::class, 'editarRefeicao'])->name('editar_refeicao');
 Route::post('/atualizar_refeicao/{id}', [RefeicaoController::class, 'atualizarRefeicao'])->name('atualizar_refeicao');
 Route::get('/deletar_refeicao/{id}', [RefeicaoController::class, 'deletarRefeicao'])->name('deletar_refeicao');
 // Tela de funcionários
 Route::get('/funcionarios', [GerenteController::class, 'mostrarFuncionarios'])->name('gerente.funcionarios');
 Route::post('/cadastrar_funcionario', [FuncionarioController::class, 'cadastrarFuncionario'])->name('cadastrar_funcionario');
-Route::get('/editar_funcionario/{id}', [FuncionarioController::class, 'editarFuncionario'])->name('editar_funcionario');
+Route::get('/editar_funcionario/{id?}', [FuncionarioController::class, 'editarFuncionario'])->name('editar_funcionario');
 Route::post('/atualizar_funcionario/{id}', [FuncionarioController::class, 'atualizarFuncionario'])->name('atualizar_funcionario');
 Route::get('/deletar_funcionario/{id}', [FuncionarioController::class, 'deletarFuncionario'])->name('deletar_funcionario');
 // Tela de pedidos
@@ -70,12 +74,13 @@ Route::get('/deletar_mensagem/{id}', [ContatosController::class, 'deletarMensage
 
 /* =-=-=-= Garçom =-=-=-= */
 Route::prefix('garcom')->group(function () {
-    Route::get('/pedidos', [GarcomController::class, 'mostrarPedidos'])->name('garcom.pedidos');
-    // Tela de clientes
-    Route::get('/clientes', [GarcomController::class, 'mostrarClientes'])->name('garcom.clientes');
-    Route::post('/clientes/reservar', [GarcomController::class, 'fazerReserva'])->name('garcom.reservar');
-    Route::get('/clientes/cancelar_reserva/{id}', [GarcomController::class, 'cancelarReserva'])->name('garcom.cancelar_reserva');
     // Tela de pedidos
+    Route::get('/pedidos', [GarcomController::class, 'mostrarPedidos'])->name('garcom.pedidos');
+    Route::get('/pedidos/cliente/{id?}', [GarcomController::class, 'mostrarPedidosCliente'])->name('garcom.pedidos_cliente');
+    // Tela de reservas
+    Route::get('/reservas', [GarcomController::class, 'mostrarReservas'])->name('garcom.reservas');
+    Route::post('/reservas/fazer_reservar', [GarcomController::class, 'fazerReserva'])->name('garcom.reservar');
+    Route::get('/reservas/cancelar_reserva/{id}', [GarcomController::class, 'cancelarReserva'])->name('garcom.cancelar_reserva');
 });
 
 

@@ -9,6 +9,7 @@
     <title>Klassy Admin</title>
     <!-- plugins:css -->
     @include('admin.admincss')
+    @vite('resources/js/app.js')
 </head>
 
 <body>
@@ -39,11 +40,11 @@
                     <span class="nav-link">Navegação</span>
                 </li>
                 @if (Auth::user()->tipo_usuario == 'Gerente')
-                    @include('gerente.sidebar')
+                    @include('admin.gerente.sidebar')
                 @elseif (Auth::user()->tipo_usuario == 'Cozinheiro')
-                    @include('cozinheiro.sidebar')
+                    @include('admin.cozinheiro.sidebar')
                 @elseif (Auth::user()->tipo_usuario == 'Garçom')
-                    @include('garcom.sidebar')
+                    @include('admin.garcom.sidebar')
                 @endif
             </ul>
         </nav>

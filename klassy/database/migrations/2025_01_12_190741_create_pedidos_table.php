@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id("idPedido");
-            $table->foreignId('idCliente')->references('idCliente')->on('clientes');
+            $table->foreignId('idCliente')->references('idCliente')->on('clientes')->onDelete('cascade');
             $table->decimal('valorTotal', 10, 2);
             $table->string('status');
             $table->timestamps();

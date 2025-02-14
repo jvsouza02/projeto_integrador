@@ -11,14 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main-pagination.css">
 
 
     <title>Klassy</title>
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/templatemo-klassy-cafe.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl-carousel.css') }}">
@@ -26,34 +24,36 @@
 
     <style>
         /* Força a cor do texto em inputs do tipo time */
-        input[type="time"] {
+        #time-update {
             color: #000 !important;
         }
 
         /* Estiliza os componentes internos do input time */
-        input[type="time"]::-webkit-datetime-edit {
+        #time-update::-webkit-datetime-edit {
             color: #000 !important;
             /* Cor do texto */
         }
 
-        input[type="time"]::-webkit-datetime-edit-hour-field,
-        input[type="time"]::-webkit-datetime-edit-minute-field,
-        input[type="time"]::-webkit-datetime-edit-second-field,
-        input[type="time"]::-webkit-datetime-edit-ampm-field {
+        #time-update::-webkit-datetime-edit-hour-field,
+        #time-update::-webkit-datetime-edit-minute-field,
+        #time-update::-webkit-datetime-edit-second-field,
+        #time-update::-webkit-datetime-edit-ampm-field {
             color: #000 !important;
             /* Cor dos números */
         }
 
         /* Remove o estilo padrão do ícone */
-        input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webkit-calendar-picker-indicator {
+        #time-update::-webkit-calendar-picker-indicator,
+        #date-update::-webkit-calendar-picker-indicator {
             filter: invert(0);
             /* Mantém o ícone preto */
         }
     </style>
+
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
-
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -63,11 +63,7 @@
         </div>
     </div>
 
-
     <!-- ***** Preloader End ***** -->
-
-
-
 
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
@@ -91,7 +87,7 @@
                                     <li><a href="{{ route('cliente.reservas') }}">Minhas Reservas</a></li>
                                 </ul>
                             </li>
-                            <li class="scroll-to-section"><a href="#about">Sobre Nós</a></li>
+                            <li class="scroll-to-section"><a href="{{ route('home', '#about') }}">Sobre Nós</a></li>
 
                             <!-- Carrinho com Dropdown -->
                             <li class="submenu">
@@ -104,7 +100,9 @@
                                     <li><a
                                             href="{{ route('mostrar_carrinho', Auth::check() ? Auth::user()->cliente->idCliente : 0) }}">Ver
                                             Carrinho</a></li>
-                                    <li><a href="#clear-cart">Limpar Carrinho</a></li>
+                                    @if ($carrinho_itens_count > 0)
+                                        <li><a href="{{ route('limpar_carrinho') }}">Limpar Carrinho</a></li>
+                                    @endif
                                     <li><a href="{{ route('mostrar_pedidos') }}">Meus Pedidos</a></li>
                                 </ul>
                             </li>
@@ -146,8 +144,6 @@
     </script>
 
     <!-- Bootstrap -->
-    <script src="{{ asset('assets/js/popper.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 
     <!-- Plugins -->
     <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
@@ -164,6 +160,82 @@
     <!-- Global Init -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('assets/js/aprimoramento.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Configuração inicial do Owl Carousel
+            let owl = initOwlCarousel();
+
+            function initOwlCarousel() {
+                return $('#menuItems').owlCarousel({
+                    items: 3,
+                    loop: true,
+                    margin: 30,
+                    stagePadding: 30,
+                    autoplay: true,
+                    autoplayTimeout: 5000,
+                    nav: true,
+                    navText: [
+                        '<i class="bi bi-chevron-left"></i>',
+                        '<i class="bi bi-chevron-right"></i>'
+                    ],
+                    responsive: {
+                        0: {
+                            items: 1,
+                            margin: 15,
+                            stagePadding: 15
+                        },
+                        768: {
+                            items: 2,
+                            margin: 20,
+                            stagePadding: 20
+                        },
+                        992: {
+                            items: 3,
+                            margin: 30,
+                            stagePadding: 30
+                        }
+                    }
+                });
+            }
+
+            // Filtro AJAX
+            $('.filter-btn').click(function(e) {
+                e.preventDefault();
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+
+                const category = $(this).data('category');
+
+                $.ajax({
+                    url: '{{ route('menu.filter') }}',
+                    type: 'GET',
+                    data: {
+                        category: category
+                    },
+                    beforeSend: function() {
+                        $('#menuContainer').addClass('loading');
+                    },
+                    success: function(response) {
+                        // Destroi o carrossel antigo
+                        owl.trigger('destroy.owl.carousel').removeClass('owl-loaded');
+
+                        // Atualiza o container inteiro
+                        $('#menuContainer').html(response.html);
+
+                        // Reinicializa o carrossel
+                        owl = initOwlCarousel();
+                    },
+                    error: function(xhr) {
+                        console.error('Erro:', xhr.responseText);
+                    },
+                    complete: function() {
+                        $('#menuContainer').removeClass('loading');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

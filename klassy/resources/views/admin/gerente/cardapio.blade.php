@@ -3,6 +3,11 @@
 @section('content')
     <div class="d-flex flex-column rounded-md">
         <div>
+            @if(@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -28,7 +33,7 @@
                 <label for="categoria">Categoria:</label>
                 <select name="categoria" id="categoria">
                     <option value="#" selected disabled></option>
-                    <option value="prato">Prato</option>
+                    <option value="Prato">Prato</option>
                     <option value="Bebida">Bebida</option>
                     <option value="Lanche">Lanche</option>
                     <option value="Sobremesa">Sobremesa</option>
@@ -61,9 +66,9 @@
             </div>
         </form>
     </div>
-    <div class="container">
-        @if ($dados->count() > 0)
-            <div class="card-main">
+    @if ($dados->count() > 0)
+        <div class="container">
+            <div class="card-main" style="height: 94%;">
                 <div class="d-flex flex-column">
                     <div class="d-flex align-self-center">
                         <h1 class="text-2xl text-bold text-center">Refeições</h1>
@@ -79,11 +84,11 @@
                                     <p class="card-text"><strong>Descrição:</strong> {{ $refeicao->descricao }}</p>
                                     <p class="card-text"><strong>Categoria:</strong> {{ $refeicao->categoria }}</p>
                                     <p class="card-text"><strong>Preço:</strong> R$ {{ $refeicao->preco }}</p>
-                                    <p class="card-text"><strong>Disponibilidade:</strong>
+                                    <p class="card-text"><strong>Disponível:</strong>
                                         {{ $refeicao->disponivel ? 'Sim' : 'Não' }}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{ route('editar_refeicao', $refeicao->idRefeicao) }}"
+                                    <a href="{{ route('editar_refeicao', ['id' => $refeicao->idRefeicao]) }}"
                                         class="btn btn-primary">Editar</a>
                                     <a href="{{ route('deletar_refeicao', $refeicao->idRefeicao) }}"
                                         class="btn btn-danger">Deletar</a>
@@ -96,6 +101,6 @@
                     {{ $dados->links('pagination::custom-admin') }}
                 </div>
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 @endsection

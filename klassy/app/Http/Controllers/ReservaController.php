@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrinho;
 use App\Models\CarrinhoItens;
+use App\Models\Mesa;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
 use Auth;
@@ -21,6 +22,22 @@ class ReservaController extends Controller
             'date' => 'required|date',
             'time' => 'required|string',
             'message' => 'nullable|string',
+        ], [
+            'id_cliente.integer' => 'O campo id do cliente deve ser um número inteiro.',
+            'id_mesa.required' => 'O campo id da mesa é obrigatório.',
+            'id_mesa.integer' => 'O campo id da mesa deve ser um número inteiro.',
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome deve ser um texto.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.string' => 'O campo email deve ser um texto.',
+            'email.email' => 'O campo email deve ser um endereço de email válido.',
+            'telefone.required' => 'O campo telefone é obrigatório.',
+            'telefone.string' => 'O campo telefone deve ser um texto.',
+            'date.required' => 'O campo data é obrigatório.',
+            'date.date' => 'O campo data deve ser uma data válida.',
+            'time.required' => 'O campo hora é obrigatório.',
+            'time.string' => 'O campo hora deve ser um texto.',
+            'message.string' => 'O campo mensagem deve ser um texto.',
         ]);
 
         $reserva = new Reserva();
@@ -34,12 +51,16 @@ class ReservaController extends Controller
         $reserva->observacao = $request->message;
         $reserva->save();
 
-        return redirect()->route('home');
+        $mesa = Mesa::where('idMesa', $request->id_mesa)->first();
+        $mesa->status = 'Indisponivel';
+        $mesa->save();
+
+        return redirect()->back()->with('success', 'Reserva feita com sucesso!');
     }
 
     public function mostrarReservas()
     {
-        $reservas = Reserva::where('idCliente', Auth::user()->cliente->idCliente)->get();
+        $reservas = Reserva::where('idCliente', Auth::user()->cliente->idCliente)->paginate(3);
 
         $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
         if ($carrinho) {
@@ -61,6 +82,21 @@ class ReservaController extends Controller
             'date' => 'required|date',
             'time' => 'required|string',
             'message' => 'nullable|string',
+        ], [
+            'idReserva.required' => 'O campo id da reserva é obrigatório.',
+            'idReserva.integer' => 'O campo id da reserva deve ser um número inteiro.',
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome deve ser um texto.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.string' => 'O campo email deve ser um texto.',
+            'email.email' => 'O campo email deve ser um endereço de email válido.',
+            'telefone.required' => 'O campo telefone é obrigatório.',
+            'telefone.string' => 'O campo telefone deve ser um texto.',
+            'date.required' => 'O campo data é obrigatório.',
+            'date.date' => 'O campo data deve ser uma data válida.',
+            'time.required' => 'O campo hora é obrigatório.',
+            'time.string' => 'O campo hora deve ser um texto.',
+            'message.string' => 'O campo mensagem deve ser um texto.',
         ]);
 
         $reserva = Reserva::where('idReserva', $request->idReserva)->first();
@@ -72,14 +108,18 @@ class ReservaController extends Controller
         $reserva->observacao = $request->message;
         $reserva->save();
 
-        return redirect()->route('cliente.reservas');
+        return redirect()->route('cliente.reservas')->with('success', 'Reserva atualizada com sucesso!');
     }
 
     public function cancelarReserva($id)
     {
-        $reserva = Reserva::find($id);
+        $reserva = Reserva::where('idReserva', $id)->first();
         $reserva->delete();
 
-        return redirect()->route('cliente.reservas');
+        $mesa = Mesa::where('idMesa', $reserva->idMesa)->first();
+        $mesa->status = 'Disponivel';
+        $mesa->save();
+
+        return redirect()->route('cliente.reservas')->with('success', 'Reserva excluida com sucesso!');
     }
 }

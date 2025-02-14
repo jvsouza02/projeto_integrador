@@ -12,7 +12,7 @@ class Cliente extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'idUsuario', 'id');
     }
 
     public function reserva() {

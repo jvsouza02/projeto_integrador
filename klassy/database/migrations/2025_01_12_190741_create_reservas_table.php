@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reservas', function (Blueprint $table) {
             $table->id("idReserva");
             $table->foreignId('idCliente')->nullable()->references('idCliente')->on('clientes')->onDelete('cascade');
-            $table->foreignId('idMesa')->references('idMesa')->on('mesas')->onDelete('cascade');
+            $table->foreignId('idMesa')->references('idMesa')->on('mesas');
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');

@@ -1,4 +1,12 @@
 <li class="nav-item menu-items">
+    <a class="nav-link" href="{{ route('gerente.relatorios') }}">
+    <span class="menu-icon">
+        <i class="mdi mdi-account-multiple"></i>
+    </span>
+    <span class="menu-title">Dashboard</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
     <a class="nav-link" href="{{ route('gerente.usuarios') }}">
     <span class="menu-icon">
         <i class="mdi mdi-account-multiple"></i>
@@ -28,14 +36,6 @@
         <i class="mdi mdi-table"></i>
     </span>
     <span class="menu-title">Mesas</span>
-    </a>
-</li>
-<li class="nav-item menu-items">
-    <a class="nav-link" href="{{ route('gerente.reservas') }}">
-    <span class="menu-icon">
-        <i class="mdi mdi-calendar-check"></i>
-    </span>
-    <span class="menu-title">Reservas</span>
     </a>
 </li>
 <li class="nav-item menu-items">

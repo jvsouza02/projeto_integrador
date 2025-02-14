@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="container">
+        <div>
+            @if (@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         <h1 class="text-2xl text-bold text-center mb-3">Mesas</h1>
         <div class="d-flex justify-end">
             <button type="button" class="underline" data-toggle="modal" data-target="#cadastrarMesaModal">Cadastrar
@@ -23,14 +39,17 @@
                         <td>{{ $mesa->capacidade }}</td>
                         <td>{{ $mesa->status }}</td>
                         <td>
-                            <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#editarMesaModal{{ $mesa->idMesa }}"><i class="bi bi-pencil-fill"></i></button>
-                            <a class="btn btn-danger" href="{{ route('gerente.deletar_mesa', $mesa->idMesa) }}"><i
-                                    class="bi bi-trash-fill"></i></a>
+                            @if ($mesa->status == 'Disponivel')
+                                <button class="btn btn-primary" data-toggle="modal"
+                                    data-target="#editarMesaModal{{ $mesa->idMesa }}"><i
+                                        class="bi bi-pencil-fill"></i></button>
+                                <a class="btn btn-danger" href="{{ route('gerente.deletar_mesa', $mesa->idMesa) }}"><i
+                                        class="bi bi-trash-fill"></i></a>
+                            @endif
                         </td>
                     </tr>
                     <!-- Modal Editar -->
-                    <div class="modal fade" id="editarMesaModal{{ $mesa->idMesa}}" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="editarMesaModal{{ $mesa->idMesa }}" tabindex="-1" role="dialog"
                         aria-labelledby="editarMesaModalLabel{{ $mesa->idMesa }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -91,8 +110,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div>
+            {{ $dados->links('pagination::custom-main') }}
+        </div>
     </div>
-
 
     <!-- Modal Cadastrar -->
     <div class="modal fade" id="cadastrarMesaModal" tabindex="-1" role="dialog" aria-labelledby="cadastrarMesaModalLabel"

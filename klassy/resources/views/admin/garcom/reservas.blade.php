@@ -2,6 +2,22 @@
 
 @section('content')
 <div class="container">
+    <div>
+        @if(@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+    </div>
     <!-- Modal de reserva -->
     <div class="modal fade" id="reservarModal" tabindex="-1" aria-labelledby="reservarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -28,18 +44,12 @@
                                 required>
                         </div>
                         <div class="mb-3">
-                            <select id="numero_pessoas" name="numero_pessoas" required class="form-control">
-                                <option value="" selected disabled>Selecione o número de pessoas</option>
-                                <option value="1">01 Pessoa</option>
-                                <option value="2">02 Pessoas</option>
-                                <option value="3">03 Pessoas</option>
-                                <option value="4">04 Pessoas</option>
-                                <option value="5">05 Pessoas</option>
-                                <option value="6">06 Pessoas</option>
-                                <option value="7">07 Pessoas</option>
-                                <option value="8">08 Pessoas</option>
-                                <option value="9">09 Pessoas</option>
-                                <option value="10">10 Pessoas</option>
+                            <label for="id_mesa">Mesa</label>
+                            <select id="id_mesa" name="id_mesa" required class="form-control">
+                                <option value="" selected disabled>@if(!$mesas->isEmpty())Selecione a mesa @else Nenhuma mesa disponível @endif</option>
+                                @foreach ($mesas as $mesa)
+                                    <option value="{{ $mesa->idMesa }}">{{ $mesa->numero }} - {{ $mesa->capacidade }} Pessoas</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
@@ -59,7 +69,7 @@
             </div>
         </div>
     </div>
-    <h1 class="text-2xl text-bold text-center mb-3">Clientes</h1>
+    <h1 class="text-2xl text-bold text-center mb-3">Reservas</h1>
     <div class="d-flex justify-content-end">
         <button class="underline" data-bs-toggle="modal" data-bs-target="#reservarModal">Fazer reserva</button>
     </div>
@@ -70,22 +80,22 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
-                <th>Quantidade de Pessoas</th>
+                <th>Mesa</th>
                 <th>Data</th>
                 <th>Horário</th>
                 <th>Ação</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-white">
             @foreach ($dados as $reserva)
                 <tr>
                     <td>{{ $reserva->nome }}</td>
                     <td>{{ $reserva->email }}</td>
                     <td>{{ $reserva->telefone }}</td>
-                    <td>{{ $reserva->numero_pessoas }}</td>
-                    <td>{{ $reserva->data }}</td>
+                    <td>{{ $reserva->mesa->numero }}</td>
+                    <td>{{ \Carbon\Carbon::parse($reserva->data)->format('d/m/Y') }}</td>
                     <td>{{ $reserva->hora }}</td>
-                    <td><a href="">Ver pedidos</a> | <a href="{{route('garcom.cancelar_reserva', $reserva->idReserva)}}">Cancelar</a></td>
+                    <td>@if($reserva->idCliente != null) <a href="{{route('garcom.pedidos_cliente', $reserva->idReserva)}}">Ver pedidos</a> |@endif <a href="{{route('garcom.cancelar_reserva', $reserva->idReserva)}}">Excluir</a></td>
                 </tr>
             @endforeach
         </tbody>

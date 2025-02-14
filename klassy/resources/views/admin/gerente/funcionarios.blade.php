@@ -3,6 +3,11 @@
 @section('content')
     <div>
         <div>
+            @if(@session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -31,7 +36,7 @@
             <div class="mb-3">
                 <label for="cargo">Cargo:</label>
                 <select id="cargo" name="cargo" value="{{ old('cargo') }}" required>
-                    <option value="#" selected disabled></option>
+                    <option value="" selected disabled></option>
                     <option value="Garçom">Garçom</option>
                     <option value="Cozinheiro">Cozinheiro</option>
                     <option value="Gerente">Gerente</option>
@@ -49,38 +54,43 @@
                         style="display: none;">
                 </div>
             </div>
-            <div class="align-self-end"><button type="submit" class="btn btn-success btn-lg">Cadastrar Funcionário</button"></div>
+            <div class="align-self-end"><button type="submit" class="btn btn-success btn-lg">Cadastrar Funcionário
+                    </button">
+            </div>
         </form>
     </div>
-    @if($dados -> count() > 0)
-    <div class="card-main">
-        <div class="d-flex flex-column">
-            <div class="d-flex align-self-center">
-                <h1 class="text-2xl text-bold text-center">Funcionários</h1>
-            </div>
-            <div class="card-container">
-                @foreach ($dados as $funcionario)
-                    <div class="card-hover card-funcionarios">
-                        <img class="card-img" src="{{ asset('storage/' . $funcionario->foto) }}" alt="Foto do Funcionário">
-                        <div class="card-body-container">
-                            <h5 class="card-title text-xl">{{ $funcionario->usuario->name }}</h5>
-                            <p class="card-text"><strong>Email:</strong> {{ $funcionario->usuario->email }}</p>
-                            <p class="card-text"><strong>Cargo:</strong> {{ $funcionario->cargo }}</p>
-                            <p class="card-text"><strong>Salário:</strong> {{ $funcionario->salario }}</p>
-                            <div class="btn-container">
-                                <a href="{{ route('editar_funcionario', $funcionario->idFuncionario) }}"
-                                    class="btn btn-primary">Editar</a>
-                                <a href="{{ route('deletar_funcionario', $funcionario->idUsuario) }}"
-                                    class="btn btn-danger">Deletar</a>
-                            </div>
-                        </div>
+    @if ($dados->count() > 0)
+        <div class="container">
+            <div class="card-main" style="height: 94%;">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-self-center">
+                        <h1 class="text-2xl text-bold text-center">Funcionários</h1>
                     </div>
-                @endforeach
+                    <div class="card-container">
+                        @foreach ($dados as $funcionario)
+                            <div class="card-hover card-funcionarios">
+                                <img class="card-img" src="{{ asset('storage/' . $funcionario->foto) }}"
+                                    alt="Foto do Funcionário">
+                                <div class="card-body-container">
+                                    <h5 class="card-title text-xl">{{ $funcionario->usuario->name }}</h5>
+                                    <p class="card-text"><strong>Email:</strong> {{ $funcionario->usuario->email }}</p>
+                                    <p class="card-text"><strong>Cargo:</strong> {{ $funcionario->cargo }}</p>
+                                    <p class="card-text"><strong>Salário:</strong> {{ $funcionario->salario }}</p>
+                                    <div class="btn-container">
+                                        <a href="{{ route('editar_funcionario', $funcionario->idFuncionario) }}"
+                                            class="btn btn-primary">Editar</a>
+                                        <a href="{{ route('deletar_funcionario', $funcionario->idUsuario) }}"
+                                            class="btn btn-danger">Deletar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div>
+                    {{ $dados->links('pagination::custom-main') }}
+                </div>
             </div>
         </div>
-        <div>
-            {{ $dados->links('pagination::custom-main') }}
-        </div>
-    </div>
     @endif
 @endsection

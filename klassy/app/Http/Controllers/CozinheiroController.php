@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class CozinheiroController extends Controller
 {
     public function mostrarPedidos() {
-        $dados = PedidoItens::paginate(10);
-        return view('cozinheiro.pedidos', compact('dados'));
+        $pedidos = Pedido::paginate(10);
+        return view('admin.cozinheiro.pedidos', compact('pedidos'));
     }
 
 }
