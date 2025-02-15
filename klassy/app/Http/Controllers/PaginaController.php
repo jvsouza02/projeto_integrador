@@ -69,20 +69,19 @@ class PaginaController extends Controller
             }
         }
     }
-    public function filter(Request $request)
+    public function filtrar(Request $request)
     {
-        $category = $request->input('category');
+        $categoria = $request->input('categoria');
 
-        if ($category === 'Todas') {
-            $meals = Refeicao::where('disponivel', 1)->get();
-        } else {
-            $meals = Refeicao::where('categoria', $category)
-                ->where('disponivel', 1)
-                ->get();
+        $query = Refeicao::where('disponivel', 1);
+
+        if ($categoria !== 'Todas') {
+            $query->where('categoria', $categoria);
         }
 
-        // Verifique se a partial view existe e se a variável $meals possui dados
-        return response()->json(['html' => view('partials.menu_items', compact('meals'))->render()]);
+        $refeicoes = $query->get();
+
+        return view('partials.menu_items', compact('refeicoes'));
     }
 
 }

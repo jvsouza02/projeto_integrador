@@ -120,6 +120,6 @@ class ReservaController extends Controller
         $mesa->status = 'Disponivel';
         $mesa->save();
 
-        return redirect()->route('cliente.reservas')->with('success', 'Reserva excluida com sucesso!');
+        return redirect()->route('cliente.reservas')->with('success', 'Reserva cancelada com sucesso!');
     }
 }

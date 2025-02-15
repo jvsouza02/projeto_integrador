@@ -7,13 +7,17 @@ use App\Models\CarrinhoItens;
 use App\Models\Pagamento;
 use App\Models\Pedido;
 use App\Models\PedidoItens;
+use App\Models\Reserva;
 use Auth;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
-    public function finalizarPedido(Request $request)
+    public function finalizarPedido()
     {
+        if (!Reserva::where('idCliente', Auth::user()->cliente->idCliente)->first()) {
+            return redirect()->back()->with('error', 'Nenhuma reserva encontrada, faça uma reserva primeiro.');
+        }
         // Busca o CARRINHO do cliente
         $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
         // Busca os ITENS do carrinho (não o carrinho em si)
@@ -72,7 +76,7 @@ class PedidoController extends Controller
         $pedidos = Pedido::where('idCliente', $clienteId)
             ->with('pedidoItens.refeicao') // Carrega os itens e as refeições relacionadas
             ->orderBy('created_at', 'desc') // Ordena do mais recente para o mais antigo
-            ->get();
+            ->paginate(3); // Pagina os resultados
 
         $carrinho = Carrinho::where('idCliente', Auth::user()->cliente->idCliente)->first();
         if ($carrinho) {

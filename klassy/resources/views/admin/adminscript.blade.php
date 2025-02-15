@@ -83,7 +83,7 @@
 </script>
 
 @if (Route::currentRouteName() == 'gerente.relatorios')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{asset('admin/assets/js/chart.js')}}"></script>
     <script>
         // Sobrescreve as configurações globais do Chart.js para forçar os textos em branco
         Chart.defaults.color = '#fff';

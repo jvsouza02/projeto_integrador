@@ -162,80 +162,91 @@
     <script src="{{ asset('assets/js/aprimoramento.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            // Configuração inicial do Owl Carousel
-            let owl = initOwlCarousel();
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const menuItemsContainer = $('.owl-menu-item');
 
-            function initOwlCarousel() {
-                return $('#menuItems').owlCarousel({
-                    items: 3,
-                    loop: true,
-                    margin: 30,
-                    stagePadding: 30,
-                    autoplay: true,
-                    autoplayTimeout: 5000,
-                    nav: true,
-                    navText: [
-                        '<i class="bi bi-chevron-left"></i>',
-                        '<i class="bi bi-chevron-right"></i>'
-                    ],
-                    responsive: {
-                        0: {
-                            items: 1,
-                            margin: 15,
-                            stagePadding: 15
-                        },
-                        768: {
-                            items: 2,
-                            margin: 20,
-                            stagePadding: 20
-                        },
-                        992: {
-                            items: 3,
-                            margin: 30,
-                            stagePadding: 30
-                        }
+            menuItemsContainer.owlCarousel({
+                items: 4,
+                loop: true,
+                dots: true,
+                nav: true,
+                margin: 30,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    },
+                    1200: {
+                        items: 4
+                    },
+                    1400: {
+                        items: 5
                     }
-                });
-            }
+                }
+            });
 
-            // Filtro AJAX
-            $('.filter-btn').click(function(e) {
-                e.preventDefault();
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
 
-                const category = $(this).data('category');
+                    const category = this.dataset.category;
 
-                $.ajax({
-                    url: '{{ route('menu.filter') }}',
-                    type: 'GET',
-                    data: {
-                        category: category
-                    },
-                    beforeSend: function() {
-                        $('#menuContainer').addClass('loading');
-                    },
-                    success: function(response) {
-                        // Destroi o carrossel antigo
-                        owl.trigger('destroy.owl.carousel').removeClass('owl-loaded');
+                    fetch(`{{ route('filtrar.cardapio') }}?categoria=${category}`, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            // Destruir o carrossel
+                            menuItemsContainer.trigger('destroy.owl.carousel')
+                                .removeClass('owl-loaded owl-hidden');
 
-                        // Atualiza o container inteiro
-                        $('#menuContainer').html(response.html);
+                            // Substituir o conteúdo
+                            menuItemsContainer.html(html);
 
-                        // Reinicializa o carrossel
-                        owl = initOwlCarousel();
-                    },
-                    error: function(xhr) {
-                        console.error('Erro:', xhr.responseText);
-                    },
-                    complete: function() {
-                        $('#menuContainer').removeClass('loading');
-                    }
+                            // Reinicializar o Owl Carousel
+                            menuItemsContainer.owlCarousel({
+                                items: 4,
+                                loop: true,
+                                dots: true,
+                                nav: true,
+                                margin: 30,
+                                responsiveClass: true,
+                                responsive: {
+                                    0: {
+                                        items: 1
+                                    },
+                                    600: {
+                                        items: 2
+                                    },
+                                    1000: {
+                                        items: 3
+                                    },
+                                    1200: {
+                                        items: 4
+                                    },
+                                    1400: {
+                                        items: 5
+                                    }
+                                }
+                            });
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
             });
         });
     </script>
+
 </body>
 
 </html>

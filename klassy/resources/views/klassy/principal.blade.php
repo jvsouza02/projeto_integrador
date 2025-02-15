@@ -23,7 +23,7 @@
                 <div class="col-lg-4">
                     <div class="left-content">
                         <div class="inner-content">
-                            <h4>KlassyCafe</h4>
+                            <h4>Klassy</h4>
                             <h6>A MELHOR EXPERIÊNCIA</h6>
                             <div class="main-white-button scroll-to-section">
                                 <a href="#reservation">Faça uma Reserva</a>
@@ -162,14 +162,7 @@
                             <h6>Sobre Nós</h6>
                             <h2>Criamos Memórias Deliciosas para Você</h2>
                         </div>
-                        <p>O Klassy Cafe é um dos melhores <a href="https://templatemo.com/tag/restaurant" target="_blank"
-                                rel="sponsored">templates HTML para restaurantes</a> com o framework CSS
-                            Bootstrap v4.5.2.
-                            Você pode baixar e usar gratuitamente este layout de template de site para o seu negócio de
-                            restaurante.
-                            Você está autorizado a usar este template para fins comerciais.
-                            <br><br>Você NÃO está autorizado a redistribuir o arquivo ZIP do template em qualquer site
-                            de download de templates. Por favor, entre em contato conosco para mais informações.
+                        <p>Bem-vindo ao Klassy, onde a paixão pela gastronomia se une à excelência em atendimento para proporcionar experiências inesquecíveis. Somos um restaurante que valoriza a tradição e a inovação, oferecendo um ambiente acolhedor e sofisticado para que cada visita seja única.<br><br>Nossa equipe, dedicada e experiente, trabalha incansavelmente para transformar ingredientes selecionados em verdadeiras obras-primas culinárias. Do primeiro contato à última garfada, buscamos surpreender nossos clientes com sabores marcantes, apresentação impecável e um serviço que reflete nosso compromisso com a qualidade.<br><br>Venha nos visitar e descubra como o Klassy transforma cada refeição em um momento de celebração e sofisticação. Seja bem-vindo a um espaço onde o sabor encontra a excelência e cada detalhe é pensado para encantar você.
                         </p>
 
                         <div class="row">
@@ -219,7 +212,7 @@
                 </div>
                 <div class="col-lg-4 col-xs-12">
                     <div class="left-text-content">
-                        <p>® Klassy Cafe Restaurante
+                        <p>® Klassy Restaurante
                             <br>Empresa Sediada em Natal-RN
                         </p>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarrinhoItens;
+use App\Models\Reserva;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Carrinho;

@@ -15,7 +15,7 @@ use App\Http\Controllers\FuncionarioController;
 
 /* =-=-=-= Controle de páginas =-=-=-= */
 Route::get('/', [PaginaController::class, 'index'])->name('home');
-Route::get('/menu/filter', [PaginaController::class, 'filter'])->name('menu.filter');
+Route::get('/filtrar-cardapio', [PaginaController::class, 'filtrar'])->name('filtrar.cardapio');
 
 
 /* =-=-=-= Cliente =-=-=-= */

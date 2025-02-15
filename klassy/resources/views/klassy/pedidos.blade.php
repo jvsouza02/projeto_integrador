@@ -44,6 +44,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="mb-10">
+                {{ $pedidos->links('pagination::custom-main') }}
+            </div>
         @endif
     </div>
 @endsection
